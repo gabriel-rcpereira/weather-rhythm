@@ -1,1 +1,1 @@
-# weather-rithm
+# weather-rhythm
