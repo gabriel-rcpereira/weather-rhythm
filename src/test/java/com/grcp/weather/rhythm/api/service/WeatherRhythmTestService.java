@@ -64,7 +64,7 @@ public class WeatherRhythmTestService {
 
         // then
         WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
-        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
+        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one pop music.");
     }
 
     @ParameterizedTest
@@ -81,6 +81,23 @@ public class WeatherRhythmTestService {
 
         // then
         WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
-        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
+        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one rock music.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {-9.0, -1.0, 1.0, 8.0, 9.0})
+    public void retrieveRhythmByCityName_whenTemperatureIsBelowTen_expectedClassicMusic(double temperature) throws IOException, SpotifyWebApiException {
+        // given
+        String cityName = "cityNameTest";
+        MainResponse mainResponse = MainResponse.builder().temp(temperature).build();
+        WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
+
+        // when
+        when(weatherHelper.getCurrentWeatherByCityName(cityName)).thenReturn(weatherApiResponse);
+        when(musicHelper.retrieveMusicsByClassicalCategory()).thenReturn(List.of(MusicResponse.builder().build()));
+
+        // then
+        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one classic music.");
     }
 }

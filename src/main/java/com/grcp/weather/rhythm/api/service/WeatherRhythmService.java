@@ -35,6 +35,7 @@ public class WeatherRhythmService {
             musics = musicHelper.retrieveMusicsByRockCategory();
         } else {
             //TODO: get the playlist related to classical
+            musics = musicHelper.retrieveMusicsByClassicalCategory();
         }
         return musics;
     }

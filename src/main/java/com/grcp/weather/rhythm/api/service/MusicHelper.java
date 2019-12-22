@@ -6,6 +6,7 @@ import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
 import com.wrapper.spotify.model_objects.specification.Category;
 import com.wrapper.spotify.model_objects.specification.Paging;
+import com.wrapper.spotify.model_objects.specification.Playlist;
 import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
 import com.wrapper.spotify.model_objects.specification.PlaylistTrack;
 import com.wrapper.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
@@ -25,6 +26,7 @@ public class MusicHelper {
     private static final String PARTY = "party";
     private static final String POP = "pop";
     private static final String ROCK = "rock";
+    private static final String CLASSICAL_PLAYLIST_ID = "";
 
     private final String clientId;
     private final String clientSecret;
@@ -42,6 +44,17 @@ public class MusicHelper {
     public List<MusicResponse> retrieveMusicsByRockCategory() throws IOException, SpotifyWebApiException {
         PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(ROCK);
         return buildMusicsResponse(tracks);
+    }
+
+    public List<MusicResponse> retrieveMusicsByClassicalCategory() throws IOException, SpotifyWebApiException {
+        PlaylistTrack[] tracks = getPlaylistTracksByPlaylistId(CLASSICAL_PLAYLIST_ID);
+        return buildMusicsResponse(tracks);
+    }
+
+    private PlaylistTrack[] getPlaylistTracksByPlaylistId(String playlistId) throws IOException, SpotifyWebApiException {
+        SpotifyApi spotifyApi = buildSpotifyApi();
+        Playlist playlist = spotifyApi.getPlaylist(playlistId).build().execute();
+        return playlist.getTracks().getItems();
     }
 
     private PlaylistTrack[] getPlaylistTracksByCategoryId(String categoryId) throws IOException, SpotifyWebApiException {
@@ -94,5 +107,4 @@ public class MusicHelper {
 
         return spotifyApi;
     }
-
 }
