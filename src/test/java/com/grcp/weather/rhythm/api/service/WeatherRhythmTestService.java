@@ -46,4 +46,20 @@ public class WeatherRhythmTestService {
         WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
     }
+
+    @Test
+    public void retrieveRhythmByCityName_whenGotTemperatureFifteen() throws IOException, SpotifyWebApiException {
+        // given
+        String cityName = "cityNameTest";
+        MainResponse mainResponse = MainResponse.builder().temp(15).build();
+        WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
+
+        // when
+        when(weatherHelper.getCurrentWeatherByCityName(cityName)).thenReturn(weatherApiResponse);
+        when(musicHelper.retrieveMusicsByPopCategory()).thenReturn(List.of(MusicResponse.builder().build()));
+
+        // then
+        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
+    }
 }

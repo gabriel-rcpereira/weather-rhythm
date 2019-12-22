@@ -32,6 +32,7 @@ public class WeatherRhythmService {
             musics = musicHelper.retrieveMusicsByPartyCategory();
         } else if (isBetweenFifteenAndThirtyDegrees(mainResponse)) {
             //TODO: get the playlist related to pop
+            musics = musicHelper.retrieveMusicsByPopCategory();
         } else if (isBetweenTenAndFifteenDegrees(mainResponse)) {
             //TODO: get the playlist related to rock
         } else {
