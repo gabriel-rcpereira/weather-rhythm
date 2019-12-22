@@ -6,7 +6,6 @@ import com.grcp.weather.rhythm.restclient.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +23,12 @@ public class WeatherRhythmService {
         return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
     }
 
+    public List<WeatherRhythmResponse> retrieveRhythmByCoordinates(long latitude, long longitude) {
+        return List.of(WeatherRhythmResponse.builder().build());
+    }
+
     private List<MusicResponse> getMusics(MainResponse mainResponse) throws IOException, SpotifyWebApiException {
-        List<MusicResponse> musics = new ArrayList<>();
+        List<MusicResponse> musics;
 
         if (isAboveThirtyDegrees(mainResponse)) {
             musics = musicHelper.retrieveMusicsByPartyCategory();
@@ -34,14 +37,10 @@ public class WeatherRhythmService {
         } else if (isBetweenTenAndFourteenDegrees(mainResponse)) {
             musics = musicHelper.retrieveMusicsByRockCategory();
         } else {
-            //TODO: get the playlist related to classical
             musics = musicHelper.retrieveMusicsByClassicalCategory();
         }
-        return musics;
-    }
 
-    public List<WeatherRhythmResponse> retrieveRhythmByCoordinates(long latitude, long longitude) {
-        return List.of(WeatherRhythmResponse.builder().build());
+        return musics;
     }
 
     private boolean isBetweenTenAndFourteenDegrees(MainResponse mainResponse) {
