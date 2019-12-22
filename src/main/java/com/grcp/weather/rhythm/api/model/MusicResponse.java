@@ -1,6 +1,5 @@
 package com.grcp.weather.rhythm.api.model;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,10 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class WeatherRhythmResponse {
+@NoArgsConstructor
+public class MusicResponse {
 
-    private double temperature;
-    private List<MusicResponse> musics;
+    private String rhythm;
+    private String artistName;
+    private String albumName;
+    private String track;
 }
+

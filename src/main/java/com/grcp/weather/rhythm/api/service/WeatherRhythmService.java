@@ -1,8 +1,13 @@
 package com.grcp.weather.rhythm.api.service;
 
+import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
 import com.grcp.weather.rhythm.restclient.api.WeatherApi;
+import com.grcp.weather.rhythm.restclient.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,17 +16,55 @@ import org.springframework.stereotype.Service;
 @Service
 public class WeatherRhythmService {
 
-    private final static String APP_ID = "dd822d5631f3dafc40163e815cdf5f10";
-
+    private final String appId;
     private final WeatherApi weatherApi;
+    private final MusicHelper musicHelper;
 
-    public List<WeatherRhythmResponse> retrieveRhythmByCityName(String cityName) {
-        WeatherApiResponse weatherApiResponse = weatherApi.getWeather(cityName, APP_ID);
-        
-        return List.of(WeatherRhythmResponse.builder().build());
+    public WeatherRhythmResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException {
+        MainResponse mainResponse = getCurrentWeatherByCityName(cityName);
+        return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
+    }
+
+    private List<MusicResponse> getMusics(MainResponse mainResponse) throws IOException, SpotifyWebApiException {
+        List<MusicResponse> musics = new ArrayList<>();
+
+        if (isAboveThirtyDegrees(mainResponse)) {
+            musics = musicHelper.retrieveMusicsByPartyCategory();
+        } else if (isBetweenFifteenAndThirtyDegrees(mainResponse)) {
+            //TODO: get the playlist related to pop
+        } else if (isBetweenTenAndFifteenDegrees(mainResponse)) {
+            //TODO: get the playlist related to rock
+        } else {
+            //TODO: get the playlist related to classical
+        }
+        return musics;
+    }
+
+    private MainResponse getCurrentWeatherByCityName(String cityName) {
+        WeatherApiResponse weatherApiResponse = weatherApi.getWeather(cityName, appId);
+        return weatherApiResponse.getMain();
     }
 
     public List<WeatherRhythmResponse> retrieveRhythmByCoordinates(long latitude, long longitude) {
         return List.of(WeatherRhythmResponse.builder().build());
+    }
+
+    private boolean isBetweenTenAndFifteenDegrees(MainResponse mainResponse) {
+        return mainResponse.getTemp() >= 10 && mainResponse.getTemp() < 14;
+    }
+
+    private boolean isBetweenFifteenAndThirtyDegrees(MainResponse mainResponse) {
+        return mainResponse.getTemp() >= 15 && mainResponse.getTemp() <= 30;
+    }
+
+    private boolean isAboveThirtyDegrees(MainResponse mainResponse) {
+        return mainResponse.getTemp() > 30;
+    }
+
+    private WeatherRhythmResponse buildWeatherRhythmResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
+        return WeatherRhythmResponse.builder()
+                .temperature(mainResponse.getTemp())
+                .musics(musicsOfPartyCategory)
+                .build();
     }
 }

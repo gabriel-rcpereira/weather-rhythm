@@ -2,6 +2,8 @@ package com.grcp.weather.rhythm.api.controller;
 
 import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
 import com.grcp.weather.rhythm.api.service.WeatherRhythmService;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,8 @@ public class WeatherRhythmController {
     private final WeatherRhythmService service;
 
     @GetMapping("/weather/rhythm/v1/cities/{cityName}")
-    public ResponseEntity<List<WeatherRhythmResponse>> getRhythmByCityName(@PathVariable("cityName") String cityName) {
-        return ResponseEntity.ok(service.retrieveRhythmByCityName(cityName));
+    public ResponseEntity<WeatherRhythmResponse> getRhythmsByCityName(@PathVariable("cityName") String cityName) throws IOException, SpotifyWebApiException {
+        return ResponseEntity.ok(service.retrieveRhythmsByCityName(cityName));
     }
 
     @GetMapping("/weather/rhythm/v1/cities/latitude/{latitude}/longitude/{longitude}")
