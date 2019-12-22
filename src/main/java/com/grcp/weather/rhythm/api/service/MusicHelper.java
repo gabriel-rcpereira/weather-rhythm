@@ -22,16 +22,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class MusicHelper {
 
+    private static final String PARTY = "party";
+
     private final String clientId;
     private final String clientSecret;
 
     public List<MusicResponse> retrieveMusicsByPartyCategory() throws IOException, SpotifyWebApiException {
         SpotifyApi spotifyApi = buildSpotifyApi();
-        Optional<Category> partyCategoryOpt = getCategoryById(spotifyApi, "party");
-        Paging<PlaylistSimplified> playlistsPop = getPlaylistByCategory(spotifyApi, partyCategoryOpt.get());
-        Optional<PlaylistSimplified> playlistOpt = Stream.of(playlistsPop.getItems()).findFirst();
-        PlaylistTrack[] playlistsTrack = getPlaylistsTrack(spotifyApi, playlistOpt.get());
-        return buildMusicsResponse(playlistsTrack);
+        Optional<Category> partyCategoryOpt = getCategoryById(spotifyApi, PARTY);
+        Paging<PlaylistSimplified> partyPlaylists = getPlaylistByCategory(spotifyApi, partyCategoryOpt.get());
+        Optional<PlaylistSimplified> firstPlaylistOpt = Stream.of(partyPlaylists.getItems()).findFirst();
+        PlaylistTrack[] tracks = getPlaylistsTrack(spotifyApi, firstPlaylistOpt.get());
+        return buildMusicsResponse(tracks);
     }
 
     private PlaylistTrack[] getPlaylistsTrack(SpotifyApi spotifyApi, PlaylistSimplified playlist) throws IOException, SpotifyWebApiException {
