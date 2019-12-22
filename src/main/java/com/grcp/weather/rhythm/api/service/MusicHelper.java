@@ -24,6 +24,7 @@ public class MusicHelper {
 
     private static final String PARTY = "party";
     private static final String POP = "pop";
+    private static final String ROCK = "rock";
 
     private final String clientId;
     private final String clientSecret;
@@ -35,6 +36,11 @@ public class MusicHelper {
 
     public List<MusicResponse> retrieveMusicsByPopCategory() throws IOException, SpotifyWebApiException {
         PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(POP);
+        return buildMusicsResponse(tracks);
+    }
+
+    public List<MusicResponse> retrieveMusicsByRockCategory() throws IOException, SpotifyWebApiException {
+        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(ROCK);
         return buildMusicsResponse(tracks);
     }
 
@@ -88,4 +94,5 @@ public class MusicHelper {
 
         return spotifyApi;
     }
+
 }

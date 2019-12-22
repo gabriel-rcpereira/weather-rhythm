@@ -2,7 +2,6 @@ package com.grcp.weather.rhythm.api.service;
 
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
-import com.grcp.weather.rhythm.restclient.api.WeatherApi;
 import com.grcp.weather.rhythm.restclient.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -31,10 +30,9 @@ public class WeatherRhythmService {
         if (isAboveThirtyDegrees(mainResponse)) {
             musics = musicHelper.retrieveMusicsByPartyCategory();
         } else if (isBetweenFifteenAndThirtyDegrees(mainResponse)) {
-            //TODO: get the playlist related to pop
             musics = musicHelper.retrieveMusicsByPopCategory();
-        } else if (isBetweenTenAndFifteenDegrees(mainResponse)) {
-            //TODO: get the playlist related to rock
+        } else if (isBetweenTenAndFourteenDegrees(mainResponse)) {
+            musics = musicHelper.retrieveMusicsByRockCategory();
         } else {
             //TODO: get the playlist related to classical
         }
@@ -45,8 +43,8 @@ public class WeatherRhythmService {
         return List.of(WeatherRhythmResponse.builder().build());
     }
 
-    private boolean isBetweenTenAndFifteenDegrees(MainResponse mainResponse) {
-        return mainResponse.getTemp() >= 10 && mainResponse.getTemp() < 14;
+    private boolean isBetweenTenAndFourteenDegrees(MainResponse mainResponse) {
+        return mainResponse.getTemp() >= 10 && mainResponse.getTemp() <= 14;
     }
 
     private boolean isBetweenFifteenAndThirtyDegrees(MainResponse mainResponse) {
