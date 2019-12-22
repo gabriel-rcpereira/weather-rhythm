@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class WeatherRhythmService {
 
-    private final String appId;
-    private final WeatherApi weatherApi;
+    private final WeatherHelper weatherHelper;
     private final MusicHelper musicHelper;
 
     public WeatherRhythmResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException {
-        MainResponse mainResponse = getCurrentWeatherByCityName(cityName);
+        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
+        MainResponse mainResponse = weatherResponse.getMain();
         return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
     }
 
@@ -38,11 +38,6 @@ public class WeatherRhythmService {
             //TODO: get the playlist related to classical
         }
         return musics;
-    }
-
-    private MainResponse getCurrentWeatherByCityName(String cityName) {
-        WeatherApiResponse weatherApiResponse = weatherApi.getWeather(cityName, appId);
-        return weatherApiResponse.getMain();
     }
 
     public List<WeatherRhythmResponse> retrieveRhythmByCoordinates(long latitude, long longitude) {

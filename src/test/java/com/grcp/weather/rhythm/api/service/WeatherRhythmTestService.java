@@ -18,12 +18,8 @@ import org.springframework.util.Assert;
 @SpringBootTest
 public class WeatherRhythmTestService {
 
-    private static final String APP_ID = "appIdTest";
-//    private static final String CLIENT_ID = "clientId";
-//    private static final String CLIENT_SECRET = "clientSecret";
-
     @Mock
-    private WeatherApi weatherApi;
+    private WeatherHelper weatherHelper;
 
     @Mock
     private MusicHelper musicHelper;
@@ -32,7 +28,7 @@ public class WeatherRhythmTestService {
 
     @BeforeEach
     public void loadContext() {
-        service = new WeatherRhythmService(APP_ID, weatherApi, musicHelper);
+        service = new WeatherRhythmService(weatherHelper, musicHelper);
     }
 
     @Test
@@ -43,7 +39,7 @@ public class WeatherRhythmTestService {
         WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
 
         // when
-        when(weatherApi.getWeather(cityName, APP_ID)).thenReturn(weatherApiResponse);
+        when(weatherHelper.getCurrentWeatherByCityName(cityName)).thenReturn(weatherApiResponse);
         when(musicHelper.retrieveMusicsByPartyCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
