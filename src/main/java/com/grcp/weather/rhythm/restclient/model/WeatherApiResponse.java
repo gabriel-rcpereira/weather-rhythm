@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.httpclient.model;
+package com.grcp.weather.rhythm.restclient.model;
 
 import lombok.Getter;
 import lombok.Setter;
