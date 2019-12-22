@@ -83,6 +83,7 @@ public class SpotifyTest {
                 .collect(Collectors.toList());
 
         // then
+        //FIXME: the assert is wrong since there isn't the classical category
 //        Assert.isTrue(categoriesFiltered.size() == 4, "Expected 4 categories filtered.");
     }
 
