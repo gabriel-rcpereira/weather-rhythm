@@ -17,6 +17,7 @@ public class WeatherRhythmService {
 
     public List<WeatherRhythmResponse> retrieveRhythmByCityName(String cityName) {
         WeatherApiResponse weatherApiResponse = weatherApi.getWeather(cityName, APP_ID);
+        
         return List.of(WeatherRhythmResponse.builder().build());
     }
 
