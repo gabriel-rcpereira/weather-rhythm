@@ -34,7 +34,7 @@ public class WeatherRhythmTestService {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {31.0, 32.0, 40.0, 50.0})
+    @ValueSource(doubles = {87.0, 95.0})
     public void retrieveRhythmByCityName_whenTemperatureIsAboveOfThirty_expectedPartyMusic(double temperature) throws IOException, SpotifyWebApiException {
         // given
         String cityName = "cityNameTest";
@@ -51,7 +51,7 @@ public class WeatherRhythmTestService {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {15.0, 16.0, 17.0, 21.0, 22.0, 23.0, 24.0, 28.0, 29.0, 30.0})
+    @ValueSource(doubles = {59.0, 65.0, 70.0, 75.0, 80.0, 83.0, 86.0})
     public void retrieveRhythmByCityName_whenGetTemperatureIsBetweenFifteenAndThirty_expectedPopMusic(double temperature) throws IOException, SpotifyWebApiException {
         // given
         String cityName = "cityNameTest";
@@ -68,7 +68,7 @@ public class WeatherRhythmTestService {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {10.0, 11.0, 12.0, 13.0, 14.0})
+    @ValueSource(doubles = {50.0, 55.0, 57.0})
     public void retrieveRhythmByCityName_whenTemperatureIsBetweenTenAndFourteen_expectedRockMusic(double temperature) throws IOException, SpotifyWebApiException {
         // given
         String cityName = "cityNameTest";
@@ -85,7 +85,7 @@ public class WeatherRhythmTestService {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {-9.0, -1.0, 1.0, 8.0, 9.0})
+    @ValueSource(doubles = {10.0, 20.0, 32.0, 42.0, 49.0})
     public void retrieveRhythmByCityName_whenTemperatureIsBelowTen_expectedClassicMusic(double temperature) throws IOException, SpotifyWebApiException {
         // given
         String cityName = "cityNameTest";

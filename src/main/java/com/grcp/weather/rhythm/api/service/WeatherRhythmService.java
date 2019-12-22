@@ -29,12 +29,13 @@ public class WeatherRhythmService {
 
     private List<MusicResponse> getMusics(MainResponse mainResponse) throws IOException, SpotifyWebApiException {
         List<MusicResponse> musics;
+        double celsiusDegree = mainResponse.valueOfCelsius();
 
-        if (isAboveThirtyDegrees(mainResponse)) {
+        if (isAboveThirtyDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByPartyCategory();
-        } else if (isBetweenFifteenAndThirtyDegrees(mainResponse)) {
+        } else if (isBetweenFifteenAndThirtyDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByPopCategory();
-        } else if (isBetweenTenAndFourteenDegrees(mainResponse)) {
+        } else if (isBetweenTenAndFourteenDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByRockCategory();
         } else {
             musics = musicHelper.retrieveMusicsByClassicalCategory();
@@ -43,16 +44,16 @@ public class WeatherRhythmService {
         return musics;
     }
 
-    private boolean isBetweenTenAndFourteenDegrees(MainResponse mainResponse) {
-        return mainResponse.getTemp() >= 10 && mainResponse.getTemp() <= 14;
+    private boolean isBetweenTenAndFourteenDegrees(double celsiusDegree) {
+        return celsiusDegree >= 10.0 && celsiusDegree <= 14.0;
     }
 
-    private boolean isBetweenFifteenAndThirtyDegrees(MainResponse mainResponse) {
-        return mainResponse.getTemp() >= 15 && mainResponse.getTemp() <= 30;
+    private boolean isBetweenFifteenAndThirtyDegrees(double celsiusDegree) {
+        return celsiusDegree >= 15.0 && celsiusDegree <= 30.0;
     }
 
-    private boolean isAboveThirtyDegrees(MainResponse mainResponse) {
-        return mainResponse.getTemp() > 30;
+    private boolean isAboveThirtyDegrees(double celsiusDegree) {
+        return celsiusDegree > 30.0;
     }
 
     private WeatherRhythmResponse buildWeatherRhythmResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {

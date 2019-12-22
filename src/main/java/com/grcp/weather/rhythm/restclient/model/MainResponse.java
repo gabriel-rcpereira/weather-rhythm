@@ -1,5 +1,6 @@
 package com.grcp.weather.rhythm.restclient.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,4 +11,9 @@ import lombok.Setter;
 public class MainResponse {
 
     private double temp;
+
+    @JsonIgnore
+    public double valueOfCelsius() {
+        return (temp - 32.0) * (5.0/9.0);
+    }
 }
