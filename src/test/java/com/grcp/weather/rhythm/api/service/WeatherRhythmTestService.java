@@ -1,20 +1,18 @@
 package com.grcp.weather.rhythm.api.service;
 
+import static org.mockito.Mockito.when;
+
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
-import com.grcp.weather.rhythm.restclient.api.WeatherApi;
 import com.grcp.weather.rhythm.restclient.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import java.io.IOException;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
@@ -29,7 +27,7 @@ public class WeatherRhythmTestService {
 
     @InjectMocks
     private WeatherRhythmService service;
-    
+
     @ParameterizedTest
     @ValueSource(doubles = {303.25, 304.15, 308.15})
     public void retrieveRhythmByCityName_whenTemperatureIsAboveOfThirty_expectedPartyMusic(double temperature) throws IOException, SpotifyWebApiException {
