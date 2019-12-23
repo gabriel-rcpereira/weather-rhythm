@@ -58,7 +58,7 @@ public class WeatherRhythmService {
 
     private WeatherRhythmResponse buildWeatherRhythmResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
         return WeatherRhythmResponse.builder()
-                .temperature(mainResponse.getTemp())
+                .temperature(mainResponse.valueOfCelsius())
                 .musics(musicsOfPartyCategory)
                 .build();
     }

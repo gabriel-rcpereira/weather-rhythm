@@ -13,9 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MusicResponse {
 
-    private String rhythm;
     private String artistName;
     private String albumName;
-    private String track;
+    private String apiTrack;
 }
 

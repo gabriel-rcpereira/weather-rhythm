@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class MusicHelper {
     private static final String PARTY = "party";
     private static final String POP = "pop";
     private static final String ROCK = "rock";
-    private static final String CLASSICAL_PLAYLIST_ID = "";
+    private static final String CLASSICAL_PLAYLIST_ID = "45o9GyQis9HRPTYUXuS1hQ";
 
     private final String clientId;
     private final String clientSecret;
@@ -84,11 +85,11 @@ public class MusicHelper {
 
     private List<MusicResponse> buildMusicsResponse(PlaylistTrack[] playlistTracks) {
         return Arrays.stream(playlistTracks)
+                .filter(isValidTrackPredicate())
                 .map(playlistTrack -> MusicResponse.builder()
-                        .rhythm("party")
                         .albumName(playlistTrack.getTrack().getAlbum().getName())
                         .artistName(playlistTrack.getTrack().getName())
-                        .track(playlistTrack.getTrack().getUri())
+                        .apiTrack(playlistTrack.getTrack().getHref())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -106,5 +107,12 @@ public class MusicHelper {
         spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
         return spotifyApi;
+    }
+
+    private Predicate<PlaylistTrack> isValidTrackPredicate() {
+        return playlistTrack -> playlistTrack.getTrack() != null &&
+                playlistTrack.getTrack().getHref() != null &&
+                playlistTrack.getTrack().getAlbum() != null &&
+                playlistTrack.getTrack().getAlbum().getName() != null;
     }
 }
