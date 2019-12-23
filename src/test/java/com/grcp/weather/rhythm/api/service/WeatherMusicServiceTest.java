@@ -3,7 +3,7 @@ package com.grcp.weather.rhythm.api.service;
 import static org.mockito.Mockito.when;
 
 import com.grcp.weather.rhythm.api.model.MusicResponse;
-import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
+import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
 @SpringBootTest
-public class WeatherRhythmServiceTest {
+public class WeatherMusicServiceTest {
 
     @Mock
     private WeatherHelper weatherHelper;
@@ -25,11 +25,11 @@ public class WeatherRhythmServiceTest {
     @Mock
     private MusicHelper musicHelper;
 
-    private WeatherRhythmService service;
+    private WeatherMusicService service;
 
     @BeforeEach
     public void loadContext() {
-        service = new WeatherRhythmService(weatherHelper, musicHelper, new ValidatorHelper());
+        service = new WeatherMusicService(weatherHelper, musicHelper, new ValidatorHelper());
     }
 
     @ParameterizedTest
@@ -45,7 +45,7 @@ public class WeatherRhythmServiceTest {
         when(musicHelper.retrieveMusicsByPartyCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
     }
 
@@ -62,7 +62,7 @@ public class WeatherRhythmServiceTest {
         when(musicHelper.retrieveMusicsByPopCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one pop music.");
     }
 
@@ -79,7 +79,7 @@ public class WeatherRhythmServiceTest {
         when(musicHelper.retrieveMusicsByRockCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one rock music.");
     }
 
@@ -96,7 +96,7 @@ public class WeatherRhythmServiceTest {
         when(musicHelper.retrieveMusicsByClassicalCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherRhythmResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one classic music.");
     }
 }

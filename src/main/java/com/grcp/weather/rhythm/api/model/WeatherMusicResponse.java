@@ -12,7 +12,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherRhythmResponse {
+public class WeatherMusicResponse {
 
     private double temperature;
     private List<MusicResponse> musics;
