@@ -1,6 +1,5 @@
 package com.grcp.weather.rhythm.api.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.when;
 
 import com.grcp.weather.rhythm.api.model.MusicResponse;
@@ -10,9 +9,9 @@ import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import java.io.IOException;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
