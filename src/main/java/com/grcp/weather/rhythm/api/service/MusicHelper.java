@@ -24,26 +24,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class MusicHelper {
 
-    private static final String PARTY = "party";
-    private static final String POP = "pop";
-    private static final String ROCK = "rock";
+    private static final String PARTY_CATEGORY_ID = "party";
+    private static final String POP_CATEGORY_ID = "pop";
+    private static final String ROCK_CATEGORY_ID = "rock";
     private static final String CLASSICAL_PLAYLIST_ID = "45o9GyQis9HRPTYUXuS1hQ";
 
     private final String clientId;
     private final String clientSecret;
 
     public List<MusicResponse> retrieveMusicsByPartyCategory() throws IOException, SpotifyWebApiException {
-        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(PARTY);
+        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(PARTY_CATEGORY_ID);
         return buildMusicsResponse(tracks);
     }
 
     public List<MusicResponse> retrieveMusicsByPopCategory() throws IOException, SpotifyWebApiException {
-        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(POP);
+        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(POP_CATEGORY_ID);
         return buildMusicsResponse(tracks);
     }
 
     public List<MusicResponse> retrieveMusicsByRockCategory() throws IOException, SpotifyWebApiException {
-        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(ROCK);
+        PlaylistTrack[] tracks = getPlaylistTracksByCategoryId(ROCK_CATEGORY_ID);
         return buildMusicsResponse(tracks);
     }
 
