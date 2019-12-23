@@ -1,5 +1,6 @@
 package com.grcp.weather.rhythm.api.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import static org.mockito.Mockito.when;
 
 import com.grcp.weather.rhythm.api.model.MusicResponse;
@@ -25,8 +26,12 @@ public class WeatherRhythmServiceTest {
     @Mock
     private MusicHelper musicHelper;
 
-    @InjectMocks
     private WeatherRhythmService service;
+
+    @BeforeEach
+    public void loadContext() {
+        service = new WeatherRhythmService(weatherHelper, musicHelper, new ValidatorHelper());
+    }
 
     @ParameterizedTest
     @ValueSource(doubles = {303.25, 304.15, 308.15})

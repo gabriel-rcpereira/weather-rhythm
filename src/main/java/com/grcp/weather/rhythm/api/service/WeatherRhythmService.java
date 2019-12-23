@@ -16,6 +16,7 @@ public class WeatherRhythmService {
 
     private final WeatherHelper weatherHelper;
     private final MusicHelper musicHelper;
+    private final ValidatorHelper validatorHelper;
 
     public WeatherRhythmResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException {
         WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
@@ -31,29 +32,17 @@ public class WeatherRhythmService {
         List<MusicResponse> musics;
         double celsiusDegree = mainResponse.valueOfCelsius();
 
-        if (isAboveThirtyDegrees(celsiusDegree)) {
+        if (validatorHelper.isAboveThirtyDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByPartyCategory();
-        } else if (isBetweenFifteenAndThirtyDegrees(celsiusDegree)) {
+        } else if (validatorHelper.isBetweenFifteenAndThirtyDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByPopCategory();
-        } else if (isBetweenTenAndFourteenDegrees(celsiusDegree)) {
+        } else if (validatorHelper.isBetweenTenAndFourteenDegrees(celsiusDegree)) {
             musics = musicHelper.retrieveMusicsByRockCategory();
         } else {
             musics = musicHelper.retrieveMusicsByClassicalCategory();
         }
 
         return musics;
-    }
-
-    private boolean isBetweenTenAndFourteenDegrees(double celsiusDegree) {
-        return celsiusDegree >= 10.0 && celsiusDegree < 15.0;
-    }
-
-    private boolean isBetweenFifteenAndThirtyDegrees(double celsiusDegree) {
-        return celsiusDegree >= 15.0 && celsiusDegree <= 30.0;
-    }
-
-    private boolean isAboveThirtyDegrees(double celsiusDegree) {
-        return celsiusDegree > 30.0;
     }
 
     private WeatherRhythmResponse buildWeatherRhythmResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
