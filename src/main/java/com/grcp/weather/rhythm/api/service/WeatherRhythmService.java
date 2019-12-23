@@ -45,7 +45,7 @@ public class WeatherRhythmService {
     }
 
     private boolean isBetweenTenAndFourteenDegrees(double celsiusDegree) {
-        return celsiusDegree >= 10.0 && celsiusDegree <= 14.0;
+        return celsiusDegree >= 10.0 && celsiusDegree < 15.0;
     }
 
     private boolean isBetweenFifteenAndThirtyDegrees(double celsiusDegree) {
