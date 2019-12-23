@@ -17,12 +17,12 @@ public class WeatherRhythmController {
 
     private final WeatherRhythmService service;
 
-    @GetMapping("/weather/rhythm/v1/musics/cities/{cityName}")
+    @GetMapping("/weather/rhythm/v1/cities/{cityName}/musics")
     public ResponseEntity<WeatherRhythmResponse> getRhythmsByCityName(@PathVariable("cityName") String cityName) throws IOException, SpotifyWebApiException {
         return ResponseEntity.ok(service.retrieveRhythmsByCityName(cityName));
     }
 
-    @GetMapping("/weather/rhythm/v1/musics/cities/latitude/{latitude}/longitude/{longitude}")
+    @GetMapping("/weather/rhythm/v1/cities/lat/{latitude}/long/{longitude}/musics")
     public ResponseEntity<List<WeatherRhythmResponse>> getRhythmsByCoordinates(@PathVariable("latitude") long latitude,
                                                                                @PathVariable("longitude") long longitude) {
         return ResponseEntity.ok(service.retrieveRhythmByCoordinates(latitude, longitude));

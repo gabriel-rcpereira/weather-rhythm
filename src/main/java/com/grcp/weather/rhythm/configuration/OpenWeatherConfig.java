@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenWeatherConfig {
 
-    @Value("com.grcp.weather.rhythm.openweather.appid")
+    @Value("${com.grcp.weather.rhythm.openweather.appid}")
     private String openWeatherAppId;
 
     @Bean

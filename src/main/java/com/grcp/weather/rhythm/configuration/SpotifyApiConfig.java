@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpotifyApiConfig {
 
-    @Value("com.grcp.weather.rhythm.spotify.api.clientid")
+    @Value("${com.grcp.weather.rhythm.spotify.api.clientid}")
     private String spotifyApiClientId;
 
-    @Value("com.grcp.weather.rhythm.spotify.api.clientsecret")
+    @Value("${com.grcp.weather.rhythm.spotify.api.clientsecret}")
     private String spotifyApiClientSecret;
 
     @Bean
