@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.configuration;
+package com.grcp.weather.rhythm.configuration.local;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-//@Profile("dev-local") FIXME - set the profile
+@Profile("dev-local")
 public class SwaggerConfig {
     @Bean
     public Docket api() {
