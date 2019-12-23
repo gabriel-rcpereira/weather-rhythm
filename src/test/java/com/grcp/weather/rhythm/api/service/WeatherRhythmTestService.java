@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,13 +27,9 @@ public class WeatherRhythmTestService {
     @Mock
     private MusicHelper musicHelper;
 
+    @InjectMocks
     private WeatherRhythmService service;
-
-    @BeforeEach
-    public void loadContext() {
-        service = new WeatherRhythmService(weatherHelper, musicHelper);
-    }
-
+    
     @ParameterizedTest
     @ValueSource(doubles = {303.25, 304.15, 308.15})
     public void retrieveRhythmByCityName_whenTemperatureIsAboveOfThirty_expectedPartyMusic(double temperature) throws IOException, SpotifyWebApiException {
