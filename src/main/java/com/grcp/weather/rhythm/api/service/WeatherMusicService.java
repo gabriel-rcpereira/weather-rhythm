@@ -1,5 +1,6 @@
 package com.grcp.weather.rhythm.api.service;
 
+import com.grcp.weather.rhythm.api.exception.WeatherMusicException;
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
@@ -18,7 +19,7 @@ public class WeatherMusicService {
     private final MusicHelper musicHelper;
     private final ValidatorHelper validatorHelper;
 
-    public WeatherMusicResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException {
+    public WeatherMusicResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException, WeatherMusicException {
         WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
         MainResponse mainResponse = weatherResponse.getMain();
         return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
