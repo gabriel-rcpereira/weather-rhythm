@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.restclient.model;
+package com.grcp.weather.rhythm.restclient.openweather.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

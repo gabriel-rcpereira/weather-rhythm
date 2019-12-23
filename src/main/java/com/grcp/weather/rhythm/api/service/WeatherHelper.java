@@ -1,7 +1,7 @@
 package com.grcp.weather.rhythm.api.service;
 
-import com.grcp.weather.rhythm.restclient.api.WeatherApi;
-import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
+import com.grcp.weather.rhythm.restclient.openweather.api.WeatherApi;
+import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -4,8 +4,8 @@ import static org.mockito.Mockito.when;
 
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherRhythmResponse;
-import com.grcp.weather.rhythm.restclient.model.MainResponse;
-import com.grcp.weather.rhythm.restclient.model.WeatherApiResponse;
+import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
+import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
 @SpringBootTest
-public class WeatherRhythmTestService {
+public class WeatherRhythmServiceTest {
 
     @Mock
     private WeatherHelper weatherHelper;
