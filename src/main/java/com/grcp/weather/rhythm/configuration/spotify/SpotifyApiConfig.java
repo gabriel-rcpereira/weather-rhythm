@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.configuration;
+package com.grcp.weather.rhythm.configuration.spotify;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

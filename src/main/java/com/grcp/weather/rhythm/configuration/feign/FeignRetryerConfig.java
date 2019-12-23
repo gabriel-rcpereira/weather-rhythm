@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.configuration;
+package com.grcp.weather.rhythm.configuration.feign;
 
 import lombok.extern.slf4j.Slf4j;
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.*;
@@ -8,7 +8,6 @@ import feign.Retryer;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
 @Slf4j

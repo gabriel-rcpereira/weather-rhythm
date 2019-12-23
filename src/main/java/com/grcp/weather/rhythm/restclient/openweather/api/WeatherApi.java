@@ -1,6 +1,6 @@
 package com.grcp.weather.rhythm.restclient.openweather.api;
 
-import com.grcp.weather.rhythm.configuration.FeignConfig;
+import com.grcp.weather.rhythm.configuration.feign.FeignConfig;
 import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.restclient;
+package com.grcp.weather.rhythm.configuration.feign;
 
 import feign.Response;
 import feign.RetryableException;

@@ -1,4 +1,4 @@
-package com.grcp.weather.rhythm.configuration;
+package com.grcp.weather.rhythm.configuration.feign;
 
 import feign.Retryer;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
