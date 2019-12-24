@@ -1,5 +1,6 @@
 package com.grcp.weather.rhythm.api.service;
 
+import com.grcp.weather.rhythm.api.model.WeatherMusicVo;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -40,15 +41,16 @@ public class WeatherMusicServiceTest {
     public void retrieveRhythmsByCityName_whenCityNameIsInvalid_expectedWeatherMusicException() throws WeatherMusicException {
         // given
         String cityNameInvalid = "cityNameTestInvalid";
+        WeatherMusicVo vo = WeatherMusicVo.builder().cityName(cityNameInvalid).build();
 
         // when
-        when(weatherHelper.getCurrentWeatherByCityName(cityNameInvalid))
+        when(weatherHelper.getCurrentWeatherByCityName(vo.getCityName()))
                 .thenThrow(new WeatherMusicException(WeatherMusicErrorReason.CITY_NOT_FOUND, new Exception("City was not found.")));
 
         // then
         assertThrows(
                 WeatherMusicException.class,
-                () -> service.retrieveMusicsByCityName(cityNameInvalid), "Expected the WeatherMusicException.");
+                () -> service.retrieveMusicsByCityName(vo), "Expected the WeatherMusicException.");
     }
 
     @ParameterizedTest
@@ -56,6 +58,7 @@ public class WeatherMusicServiceTest {
     public void retrieveRhythmByCityName_whenTemperatureIsAboveOfThirty_expectedPartyMusic(double temperature) throws WeatherMusicException {
         // given
         String cityName = "cityNameTest";
+        WeatherMusicVo vo = WeatherMusicVo.builder().cityName(cityName).build();
         MainResponse mainResponse = MainResponse.builder().temp(temperature).build();
         WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
 
@@ -64,7 +67,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByPartyCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(vo);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
     }
 
@@ -73,6 +76,7 @@ public class WeatherMusicServiceTest {
     public void retrieveRhythmByCityName_whenTemperatureIsBetweenFifteenAndThirty_expectedPopMusic(double temperature) throws WeatherMusicException {
         // given
         String cityName = "cityNameTest";
+        WeatherMusicVo vo = WeatherMusicVo.builder().cityName(cityName).build();
         MainResponse mainResponse = MainResponse.builder().temp(temperature).build();
         WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
 
@@ -81,7 +85,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByPopCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(vo);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one pop music.");
     }
 
@@ -90,6 +94,7 @@ public class WeatherMusicServiceTest {
     public void retrieveRhythmByCityName_whenTemperatureIsBetweenTenAndFourteen_expectedRockMusic(double temperature) throws WeatherMusicException {
         // given
         String cityName = "cityNameTest";
+        WeatherMusicVo vo = WeatherMusicVo.builder().cityName(cityName).build();
         MainResponse mainResponse = MainResponse.builder().temp(temperature).build();
         WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
 
@@ -98,7 +103,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByRockCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(vo);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one rock music.");
     }
 
@@ -107,6 +112,7 @@ public class WeatherMusicServiceTest {
     public void retrieveRhythmByCityName_whenTemperatureIsBelowTen_expectedClassicMusic(double temperature) throws WeatherMusicException {
         // given
         String cityName = "cityNameTest";
+        WeatherMusicVo vo = WeatherMusicVo.builder().cityName(cityName).build();
         MainResponse mainResponse = MainResponse.builder().temp(temperature).build();
         WeatherApiResponse weatherApiResponse = WeatherApiResponse.builder().main(mainResponse).build();
 
@@ -115,7 +121,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByClassicalCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(vo);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one classic music.");
     }
 }

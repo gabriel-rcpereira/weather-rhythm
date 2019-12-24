@@ -3,6 +3,7 @@ package com.grcp.weather.rhythm.api.service;
 import com.grcp.weather.rhythm.api.exception.WeatherMusicException;
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
+import com.grcp.weather.rhythm.api.model.WeatherMusicVo;
 import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
 import java.util.List;
@@ -17,8 +18,8 @@ public class WeatherMusicService {
     private final MusicHelper musicHelper;
     private final ValidatorHelper validatorHelper;
 
-    public WeatherMusicResponse retrieveMusicsByCityName(String cityName) throws WeatherMusicException {
-        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
+    public WeatherMusicResponse retrieveMusicsByCityName(WeatherMusicVo vo) throws WeatherMusicException {
+        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(vo.getCityName());
         return retrieveWeatherMusicResponse(weatherResponse);
     }
 

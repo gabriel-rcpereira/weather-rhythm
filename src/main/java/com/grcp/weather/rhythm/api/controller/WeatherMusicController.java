@@ -2,6 +2,7 @@ package com.grcp.weather.rhythm.api.controller;
 
 import com.grcp.weather.rhythm.api.exception.WeatherMusicException;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
+import com.grcp.weather.rhythm.api.model.WeatherMusicVo;
 import com.grcp.weather.rhythm.api.service.WeatherMusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,10 @@ public class WeatherMusicController {
 
     @GetMapping("/weather/rhythm/v1/cities/{cityName}/musics")
     public ResponseEntity<WeatherMusicResponse> getMusicsByCityName(@PathVariable("cityName") String cityName) throws WeatherMusicException {
-        return ResponseEntity.ok(service.retrieveMusicsByCityName(cityName));
+        WeatherMusicVo vo = WeatherMusicVo.builder()
+                .cityName(cityName)
+                .build();
+        return ResponseEntity.ok(service.retrieveMusicsByCityName(vo));
     }
 
     @GetMapping("/weather/rhythm/v1/cities/lat/{latitude}/lon/{longitude}/musics")
