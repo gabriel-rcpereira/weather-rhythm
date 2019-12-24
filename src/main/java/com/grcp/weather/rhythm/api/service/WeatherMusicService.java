@@ -19,7 +19,7 @@ public class WeatherMusicService {
     private final MusicHelper musicHelper;
     private final ValidatorHelper validatorHelper;
 
-    public WeatherMusicResponse retrieveRhythmsByCityName(String cityName) throws IOException, SpotifyWebApiException, WeatherMusicException {
+    public WeatherMusicResponse retrieveRhythmsByCityName(String cityName) throws WeatherMusicException {
         WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
         MainResponse mainResponse = weatherResponse.getMain();
         return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
@@ -29,7 +29,7 @@ public class WeatherMusicService {
         return List.of(WeatherMusicResponse.builder().build());
     }
 
-    private List<MusicResponse> getMusics(MainResponse mainResponse) throws IOException, SpotifyWebApiException {
+    private List<MusicResponse> getMusics(MainResponse mainResponse) throws WeatherMusicException {
         List<MusicResponse> musics;
         double celsiusDegree = mainResponse.valueOfCelsius();
 

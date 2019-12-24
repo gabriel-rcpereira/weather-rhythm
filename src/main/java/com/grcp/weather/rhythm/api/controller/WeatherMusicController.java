@@ -19,7 +19,7 @@ public class WeatherMusicController {
     private final WeatherMusicService service;
 
     @GetMapping("/weather/rhythm/v1/cities/{cityName}/musics")
-    public ResponseEntity<WeatherMusicResponse> getRhythmsByCityName(@PathVariable("cityName") String cityName) throws IOException, SpotifyWebApiException, WeatherMusicException {
+    public ResponseEntity<WeatherMusicResponse> getRhythmsByCityName(@PathVariable("cityName") String cityName) throws WeatherMusicException {
         return ResponseEntity.ok(service.retrieveRhythmsByCityName(cityName));
     }
 
