@@ -9,9 +9,7 @@ import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
-import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -50,7 +48,7 @@ public class WeatherMusicServiceTest {
         // then
         assertThrows(
                 WeatherMusicException.class,
-                () -> service.retrieveRhythmsByCityName(cityNameInvalid), "Expected the WeatherMusicException.");
+                () -> service.retrieveMusicsByCityName(cityNameInvalid), "Expected the WeatherMusicException.");
     }
 
     @ParameterizedTest
@@ -66,7 +64,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByPartyCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one party music.");
     }
 
@@ -83,7 +81,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByPopCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one pop music.");
     }
 
@@ -100,7 +98,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByRockCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one rock music.");
     }
 
@@ -117,7 +115,7 @@ public class WeatherMusicServiceTest {
         when(musicHelper.retrieveMusicsByClassicalCategory()).thenReturn(List.of(MusicResponse.builder().build()));
 
         // then
-        WeatherMusicResponse response = service.retrieveRhythmsByCityName(cityName);
+        WeatherMusicResponse response = service.retrieveMusicsByCityName(cityName);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one classic music.");
     }
 }
