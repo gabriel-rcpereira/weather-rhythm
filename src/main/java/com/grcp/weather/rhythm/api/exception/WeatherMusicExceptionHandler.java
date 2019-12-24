@@ -18,7 +18,7 @@ public class WeatherMusicExceptionHandler extends ResponseEntityExceptionHandler
 
     private ErrorResponse buildErrorResponse(WeatherMusicException e) {
         return ErrorResponse.builder()
-                .errorDescription(e.getMessage())
+                .description(e.getMessage())
                 .build();
     }
 }

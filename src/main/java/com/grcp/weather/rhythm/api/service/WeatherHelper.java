@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,14 +28,27 @@ public class WeatherHelper {
             log.error(errorReason.getDescription(), e);
             throw new WeatherMusicException(errorReason, e.getCause());
         } catch (HttpServerErrorException e) {
-            log.error(WeatherMusicErrorReason.WEATHER_API_COMMUNICATION_FAILED.getDescription(), e);
-            throw new WeatherMusicException(WeatherMusicErrorReason.WEATHER_API_COMMUNICATION_FAILED, e.getCause());
+            log.error(WeatherMusicErrorReason.WEATHER_API_SERVER_ERROR.getDescription(), e);
+            throw new WeatherMusicException(WeatherMusicErrorReason.WEATHER_API_SERVER_ERROR, e.getCause());
         }
     }
 
-    private WeatherMusicErrorReason getWeatherMusicErrorReason(HttpClientErrorException e) {
+    public WeatherApiResponse getCurrentWeatherByCoordinates(double latitude, double longitude) throws WeatherMusicException {
+        try {
+            return weatherApi.getWeather(latitude, longitude, appId);
+        } catch (HttpClientErrorException ex) {
+            WeatherMusicErrorReason errorReason = getWeatherMusicErrorReason(ex);
+            log.error(errorReason.getDescription(), ex);
+            throw new WeatherMusicException(errorReason, ex.getCause());
+        } catch (HttpServerErrorException ex) {
+            log.error(WeatherMusicErrorReason.WEATHER_API_SERVER_ERROR.getDescription(), ex);
+            throw new WeatherMusicException(WeatherMusicErrorReason.WEATHER_API_SERVER_ERROR, ex.getCause());
+        }
+    }
+
+    private WeatherMusicErrorReason getWeatherMusicErrorReason(HttpClientErrorException ex) {
         WeatherMusicErrorReason errorReason;
-        if (HttpStatus.NOT_FOUND.equals(e.getStatusCode())) {
+        if (HttpStatus.NOT_FOUND.equals(ex.getStatusCode())) {
             errorReason = WeatherMusicErrorReason.CITY_NOT_FOUND;
         } else {
             errorReason = WeatherMusicErrorReason.WEATHER_API_CLIENT_ERROR;

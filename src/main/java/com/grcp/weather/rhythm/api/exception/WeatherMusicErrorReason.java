@@ -9,8 +9,8 @@ import org.springframework.http.HttpStatus;
 public enum WeatherMusicErrorReason {
 
     CITY_NOT_FOUND("The city was not found.", HttpStatus.NOT_FOUND),
-    WEATHER_API_COMMUNICATION_FAILED("The weather api communication failed.", HttpStatus.PRECONDITION_FAILED),
-    WEATHER_API_CLIENT_ERROR("The weather api returns client error.", HttpStatus.PRECONDITION_FAILED),
+    WEATHER_API_SERVER_ERROR("The weather api communication fail due to server error.", HttpStatus.PRECONDITION_FAILED),
+    WEATHER_API_CLIENT_ERROR("The weather api communication fail due to client error.", HttpStatus.PRECONDITION_FAILED),
     ACQUIRE_MUSIC_API_CREDENTIALS_FAILED("The music api credentials were not acquired.", HttpStatus.PRECONDITION_FAILED),
     GET_CATEGORY_FAILED("The music api does not return the categories.", HttpStatus.PRECONDITION_FAILED),
     GET_PLAYLISTS_FAILED("The music api does not return the playlist by category.", HttpStatus.PRECONDITION_FAILED),

@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WeatherApi {
 
     @RequestMapping(method = RequestMethod.GET, value = "data/2.5/weather?q={cityName}&appid={appId}")
-    WeatherApiResponse getWeather(@RequestParam("cityName") String cityName, @RequestParam("appId") String appId);
+    WeatherApiResponse getWeather(@RequestParam("cityName") String cityName,
+                                  @RequestParam("appId") String appId);
 
+    @RequestMapping(method = RequestMethod.GET, value = "data/2.5/weather?lat={latitude}&lon={longitude}&appid={appId}")
+    WeatherApiResponse getWeather(@RequestParam("latitude") double latitude,
+                                  @RequestParam("longitude") double longitude,
+                                  @RequestParam("appId") String appId);
 }

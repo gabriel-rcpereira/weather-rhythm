@@ -5,8 +5,6 @@ import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.MainResponse;
 import com.grcp.weather.rhythm.restclient.openweather.model.WeatherApiResponse;
-import com.wrapper.spotify.exceptions.SpotifyWebApiException;
-import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,17 +17,22 @@ public class WeatherMusicService {
     private final MusicHelper musicHelper;
     private final ValidatorHelper validatorHelper;
 
-    public WeatherMusicResponse retrieveRhythmsByCityName(String cityName) throws WeatherMusicException {
+    public WeatherMusicResponse retrieveMusicsByCityName(String cityName) throws WeatherMusicException {
         WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCityName(cityName);
+        return retrieveWeatherMusicResponse(weatherResponse);
+    }
+
+    public WeatherMusicResponse retrieveMusicsByCoordinates(double latitude, double longitude) throws WeatherMusicException {
+        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCoordinates(latitude, longitude);
+        return retrieveWeatherMusicResponse(weatherResponse);
+    }
+
+    private WeatherMusicResponse retrieveWeatherMusicResponse(WeatherApiResponse weatherResponse) throws WeatherMusicException {
         MainResponse mainResponse = weatherResponse.getMain();
-        return buildWeatherRhythmResponse(mainResponse, getMusics(mainResponse));
+        return buildWeatherMusicResponse(mainResponse, retrieveMusicsResponse(mainResponse));
     }
 
-    public List<WeatherMusicResponse> retrieveRhythmByCoordinates(long latitude, long longitude) {
-        return List.of(WeatherMusicResponse.builder().build());
-    }
-
-    private List<MusicResponse> getMusics(MainResponse mainResponse) throws WeatherMusicException {
+    private List<MusicResponse> retrieveMusicsResponse(MainResponse mainResponse) throws WeatherMusicException {
         List<MusicResponse> musics;
         double celsiusDegree = mainResponse.valueOfCelsius();
 
@@ -46,7 +49,7 @@ public class WeatherMusicService {
         return musics;
     }
 
-    private WeatherMusicResponse buildWeatherRhythmResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
+    private WeatherMusicResponse buildWeatherMusicResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
         return WeatherMusicResponse.builder()
                 .temperature(mainResponse.valueOfCelsius())
                 .musics(musicsOfPartyCategory)

@@ -15,16 +15,15 @@ public class FeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
         if (HttpStatus.resolve(response.status()).is5xxServerError()) {
-            log.error("Retrying the request. [{}] status. Error reason: {}", response.status(), response.reason());
-            return new RetryableException(
-                    response.status(),
+            log.error("Retrying the request. The [{}] status. Error reason: {}", response.status(), response.reason());
+            return new RetryableException(response.status(),
                     response.reason(),
                     response.request().httpMethod(),
                     null,
                     response.request());
         } else {
-            log.error("Reached the [{}] status. Error reason: {}", response.status(), response.reason());
-            return new HttpClientErrorException(HttpStatus.resolve(response.status()));
+            log.error("The [{}] status was returned. Error reason: {}", response.status(), response.reason());
+            return new HttpClientErrorException(HttpStatus.resolve(response.status()), response.reason());
         }
     }
 }
