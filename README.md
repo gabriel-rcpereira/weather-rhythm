@@ -16,11 +16,11 @@ The rhythms will be chosen considering:
 
 These are the Dev Dependencies:
 
-    - [Gradle 4.0.1 or Later](https://gradle.org/install)
+    [Gradle 4.0.1 or Later](https://gradle.org/install)
     
-    - [Java 11](https://openjdk.java.net/projects/jdk/11)
+    [Java 11](https://openjdk.java.net/projects/jdk/11)
 
-    - [Enable the Lombok within the IDE](https://projectlombok.org)
+    [Enable the Lombok within the IDE](https://projectlombok.org)
 
 ## Deployment
 
