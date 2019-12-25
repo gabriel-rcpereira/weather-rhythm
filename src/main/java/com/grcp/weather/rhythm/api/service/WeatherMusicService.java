@@ -23,8 +23,8 @@ public class WeatherMusicService {
         return retrieveWeatherMusicResponse(weatherResponse);
     }
 
-    public WeatherMusicResponse retrieveMusicsByCoordinates(double latitude, double longitude) throws WeatherMusicException {
-        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCoordinates(latitude, longitude);
+    public WeatherMusicResponse retrieveMusicsByCoordinates(WeatherMusicVo vo) throws WeatherMusicException {
+        WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCoordinates(vo.getLatitude(), vo.getLongitude());
         return retrieveWeatherMusicResponse(weatherResponse);
     }
 

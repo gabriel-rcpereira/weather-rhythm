@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -28,6 +27,10 @@ public class WeatherMusicController {
     @GetMapping("/weather/rhythm/v1/cities/lat/{latitude}/lon/{longitude}/musics")
     public ResponseEntity<WeatherMusicResponse> getMusicsByCoordinates(@PathVariable("latitude") double latitude,
                                                                        @PathVariable("longitude") double longitude) throws WeatherMusicException {
-        return ResponseEntity.ok(service.retrieveMusicsByCoordinates(latitude, longitude));
+        WeatherMusicVo vo = WeatherMusicVo.builder()
+                .latitude(latitude)
+                .longitude(longitude)
+                .build();
+        return ResponseEntity.ok(service.retrieveMusicsByCoordinates(vo));
     }
 }
