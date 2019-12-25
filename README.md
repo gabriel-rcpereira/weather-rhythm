@@ -16,11 +16,11 @@ The rhythms will be chosen considering:
 
 These are the Dev Dependencies:
 
-    [Gradle 4.0.1 or Later](https://gradle.org/install)
+- [Gradle 4.0.1 or Later](https://gradle.org/install)
     
-    [Java 11](https://openjdk.java.net/projects/jdk/11)
+- [Java 11](https://openjdk.java.net/projects/jdk/11)
 
-    [Enable the Lombok within the IDE](https://projectlombok.org)
+- [Enable the Lombok within the IDE](https://projectlombok.org)
 
 ## Deployment
 
@@ -35,16 +35,16 @@ to containerize the application:
 
 ## Build With
 
-    - [Spring Boot 2.2.2](https://spring.io/projects/spring-boot)
+- [Spring Boot 2.2.2](https://spring.io/projects/spring-boot)
 
-    - [Spring Cloud OpenFeign](https://cloud.spring.io/spring-cloud-openfeign/reference/html/)
+- [Spring Cloud OpenFeign](https://cloud.spring.io/spring-cloud-openfeign/reference/html/)
 
-    - [Spotify Web Api](https://github.com/thelinmichael/spotify-web-api-java)
+- [Spotify Web Api](https://github.com/thelinmichael/spotify-web-api-java)
 
-    - [SpringFox Swagger 2](https://springfox.github.io/springfox/docs/current/)
+- [SpringFox Swagger 2](https://springfox.github.io/springfox/docs/current/)
 
-    - [JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
+- [JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
 
-    - [Mokito](https://site.mockito.org/)
+- [Mokito](https://site.mockito.org/)
 
-    - [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/)
