@@ -24,12 +24,14 @@ These are the Dev Dependencies:
 
 ## Deployment
 
-The **dockerfile** in the root folder contains the parameter to build the docker image. The variable **APP_HOME** contains
-the local path where the jar place.
+The **Dockerfile** in the root folder contains the parameter to build the docker image. Execute these commands in order
+to containerize the application:
 
-The docker command below creates the docker image:
+- `./gradlew build`
 
-`docker image build -t weather.rhythm:1.0.0 .`
+- `docker build -t api/weather-rhythm .`
+
+- `docker run -p 8080:8080 api/weather-rhythm`
 
 ## Build With
 
@@ -44,3 +46,5 @@ The docker command below creates the docker image:
     - [JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
 
     - [Mokito](https://site.mockito.org/)
+
+    - [Docker](https://www.docker.com/)
