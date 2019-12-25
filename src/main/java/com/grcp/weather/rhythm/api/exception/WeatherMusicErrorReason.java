@@ -14,7 +14,8 @@ public enum WeatherMusicErrorReason {
     ACQUIRE_MUSIC_API_CREDENTIALS_FAILED("The music api credentials were not acquired.", HttpStatus.PRECONDITION_FAILED),
     GET_CATEGORY_FAILED("The music api does not return the categories.", HttpStatus.PRECONDITION_FAILED),
     GET_PLAYLISTS_FAILED("The music api does not return the playlist by category.", HttpStatus.PRECONDITION_FAILED),
-    GET_PLAYLIST_TRACKS("The music api does not return the tracks from a playlist.", HttpStatus.PRECONDITION_FAILED);
+    GET_PLAYLIST_TRACKS("The music api does not return the tracks from a playlist.", HttpStatus.PRECONDITION_FAILED),
+    COORDINATES_INVALID("The coordinates are invalid.", HttpStatus.BAD_REQUEST);
 
     private final String description;
     private final HttpStatus httpStatus;

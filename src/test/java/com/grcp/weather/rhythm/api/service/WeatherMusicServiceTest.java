@@ -124,7 +124,31 @@ public class WeatherMusicServiceTest {
         WeatherMusicResponse response = service.retrieveMusicsByCityName(vo);
         Assert.notEmpty(response.getMusics(), "Expected a list filled with at least one classic music.");
     }
-    
+
+    @ParameterizedTest
+    @ValueSource(doubles = {-90.1, 90.1})
+    public void retrieveMusicsByCoordinates_whenLatitudeIsInvalid_expectedWeatherMusicException(double latitude){
+        // given
+        WeatherMusicVo vo = WeatherMusicVo.builder().latitude(latitude).longitude(40D).build();
+
+        // then
+        assertThrows(
+                WeatherMusicException.class,
+                () -> service.retrieveMusicsByCoordinates(vo), "Expected the WeatherMusicException with a bad request status.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(doubles = {-180.1, 180.1})
+    public void retrieveMusicsByCoordinates_whenLongitudeIsInvalid_expectedWeatherMusicException(double longitude){
+        // given
+        WeatherMusicVo vo = WeatherMusicVo.builder().latitude(40D).longitude(longitude).build();
+
+        // then
+        assertThrows(
+                WeatherMusicException.class,
+                () -> service.retrieveMusicsByCoordinates(vo), "Expected the WeatherMusicException with a bad request status.");
+    }
+
     @ParameterizedTest
     @ValueSource(doubles = {303.25, 304.15, 308.15})
     public void retrieveMusicsByCoordinates_whenTemperatureIsAboveOfThirty_expectedPartyMusic(double temperature) throws WeatherMusicException {

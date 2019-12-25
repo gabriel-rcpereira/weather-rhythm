@@ -1,5 +1,6 @@
 package com.grcp.weather.rhythm.api.service;
 
+import com.grcp.weather.rhythm.api.exception.WeatherMusicErrorReason;
 import com.grcp.weather.rhythm.api.exception.WeatherMusicException;
 import com.grcp.weather.rhythm.api.model.MusicResponse;
 import com.grcp.weather.rhythm.api.model.WeatherMusicResponse;
@@ -24,6 +25,7 @@ public class WeatherMusicService {
     }
 
     public WeatherMusicResponse retrieveMusicsByCoordinates(WeatherMusicVo vo) throws WeatherMusicException {
+        validateCoordinates(vo);
         WeatherApiResponse weatherResponse = weatherHelper.getCurrentWeatherByCoordinates(vo.getLatitude(), vo.getLongitude());
         return retrieveWeatherMusicResponse(weatherResponse);
     }
@@ -48,6 +50,12 @@ public class WeatherMusicService {
         }
 
         return musics;
+    }
+
+    private void validateCoordinates(WeatherMusicVo vo) throws WeatherMusicException {
+        if (vo.isInvalidCoordinates()) {
+            throw new WeatherMusicException(WeatherMusicErrorReason.COORDINATES_INVALID);
+        }
     }
 
     private WeatherMusicResponse buildWeatherMusicResponse(MainResponse mainResponse, List<MusicResponse> musicsOfPartyCategory) {
