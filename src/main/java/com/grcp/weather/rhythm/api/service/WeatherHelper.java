@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @RequiredArgsConstructor
