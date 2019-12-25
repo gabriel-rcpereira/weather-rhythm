@@ -72,4 +72,28 @@ public class WeatherHelperTest {
                 actualHttpStatus.value(),
                 "Expected WeatherMusicException with pre conditional failed status.");
     }
+
+    @Test
+    public void getCurrentWeatherByCoordinates_whenMusicApiReturnsBadRequest_expectedWeatherMusicExceptionPreConditionalFailed() {
+        // when
+        double latitude = 50D;
+        double longitude = 50D;
+        HttpStatus expectedStatus = HttpStatus.PRECONDITION_FAILED;
+
+        // given
+        doThrow(new HttpClientErrorException(HttpStatus.BAD_REQUEST)).when(weatherApi).getWeather(latitude, longitude, APP_ID);
+
+        // then
+        HttpStatus actualHttpStatus = null;
+        try {
+            weatherHelper.getCurrentWeatherByCoordinates(latitude, longitude);
+        } catch (WeatherMusicException e) {
+            actualHttpStatus = e.getHttpStatus();
+        }
+
+        assertEquals(expectedStatus.value(),
+                actualHttpStatus.value(),
+                "Expected WeatherMusicException with pre conditional failed status.");
+    }
+
 }
