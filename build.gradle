@@ -25,7 +25,6 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
 
 	compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
