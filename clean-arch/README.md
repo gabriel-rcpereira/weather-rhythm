@@ -12,7 +12,19 @@ The rhythms will be chosen considering:
 
     4. Otherwise, if it's freezing outside, suggests classical music tracks;
 
-## Prerequisites
+### Documentation
+The C4 Model was used to documenting the API Application features and their interaction. 
+The other C4 diagrams will be created(or changed) according to project advances.
+
+#### System Context
+
+![alt text](./diagram/images/system-context-view.jpg "System Context - C4 Model")
+
+#### Container
+
+![alt text](./diagram/images/container-view.jpg "Container - C4 Model")
+
+## Prerequisites to run locally
 - [Gradle 4.0.1 or Later](https://gradle.org/install)
 
 - [Java 11](https://openjdk.java.net/projects/jdk/11)
