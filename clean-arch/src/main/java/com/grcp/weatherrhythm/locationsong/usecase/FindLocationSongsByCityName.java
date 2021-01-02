@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 public class FindLocationSongsByCityName {
 
     public LocationSong execute(String cityName) {
-        return null;
+        return LocationSong.builder().build();
     }
 }
