@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.locationsong.domain.song;
+package com.grcp.weatherrhythm.locationsong.domain;
 
 import java.util.HashSet;
 import java.util.Set;
