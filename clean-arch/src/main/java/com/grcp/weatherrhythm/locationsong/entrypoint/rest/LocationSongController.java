@@ -1,7 +1,7 @@
-package com.grcp.weatherrhythm.locationsong.entrypoint;
+package com.grcp.weatherrhythm.locationsong.entrypoint.rest;
 
 import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
-import com.grcp.weatherrhythm.locationsong.entrypoint.json.response.LocationSongResponse;
+import com.grcp.weatherrhythm.locationsong.entrypoint.rest.json.response.LocationSongResponse;
 import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCityName;
 import javax.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;

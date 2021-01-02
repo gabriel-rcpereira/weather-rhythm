@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.locationsong.entrypoint.json.response;
+package com.grcp.weatherrhythm.locationsong.entrypoint.rest.json.response;
 
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import lombok.AccessLevel;

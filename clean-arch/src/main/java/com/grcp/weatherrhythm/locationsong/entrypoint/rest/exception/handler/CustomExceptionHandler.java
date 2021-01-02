@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.locationsong.entrypoint.exception.handler;
+package com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler;
 
 import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
