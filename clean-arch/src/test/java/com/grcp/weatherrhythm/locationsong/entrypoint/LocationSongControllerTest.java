@@ -1,9 +1,13 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.grcp.weatherrhythm.locationsong.config.message.MessageConfiguration;
 import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
 import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
+import com.grcp.weatherrhythm.locationsong.entrypoint.rest.LocationSongController;
+import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler.CustomExceptionHandler;
+import com.grcp.weatherrhythm.locationsong.gateway.message.impl.MessageSourceImpl;
 import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCityName;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -18,12 +22,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.arrayWithSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(controllers = { MessageConfiguration.class, MessageSourceImpl.class, LocationSongController.class, CustomExceptionHandler.class })
 class LocationSongControllerTest {
 
     @Autowired
@@ -66,7 +69,6 @@ class LocationSongControllerTest {
                 .andExpect(jsonPath("$.locationWeather.celsiusTemperature", is(32.0)))
 
                 .andExpect(jsonPath("$.songs.length()", is(2)))
-//                .andExpect(jsonPath("$.songs[*].length()", is([3, 3])))
                 .andExpect(jsonPath("$.songs[*].artistName", hasItem("artistOne")))
                 .andExpect(jsonPath("$.songs[*].albumName", hasItem("albumOne")))
                 .andExpect(jsonPath("$.songs[*].apiTrack", hasItem("trackOne")))
@@ -92,6 +94,10 @@ class LocationSongControllerTest {
                         .param("city", city));
 
         //then
-        resultActions.andExpect(status().isBadRequest());
+        resultActions.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.length()", is(2)))
+                .andExpect(jsonPath("$.service", is("001")))
+                .andExpect(jsonPath("$.errors.length()", is(1)))
+                .andExpect(jsonPath("$.errors[*].message", hasItem("The City must not be blank. ")));
     }
 }
