@@ -13,12 +13,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
 
+    private String code;
     private String message;
 
     public static class Builder {
 
+        private final MessageGateway messageGateway;
+
+        private String code;
         private String message;
-        private MessageGateway messageGateway;
 
         public Builder(MessageGateway messageGateway) {
             this.messageGateway = messageGateway;
@@ -26,13 +29,14 @@ public class ErrorResponse {
 
         public Builder withConstraintViolation(ConstraintViolation<?> e) {
             ErrorMessage message = messageGateway.retrieveErrorMessage(e.getMessage());
+            this.code = e.getMessage();
             this.message = message.getMessage();
 
             return this;
         }
 
         public ErrorResponse build() {
-            return new ErrorResponse(this.message);
+            return new ErrorResponse(this.code, this.message);
         }
     }
 }

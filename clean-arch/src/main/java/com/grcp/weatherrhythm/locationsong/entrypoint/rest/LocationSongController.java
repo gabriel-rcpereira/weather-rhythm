@@ -30,9 +30,7 @@ public class LocationSongController {
         log.info("Getting location songs by City [{}].", city);
 
         LocationSong locationSong = findLocationSongsByCityName.execute(city);
-        LocationSongResponse response = new LocationSongResponse.Builder()
-                .withLocationSong(locationSong)
-                .build();
+        LocationSongResponse response = new LocationSongResponse(locationSong);
 
         log.info("Getting location songs by City [{}] executed with success.", city);
         return ResponseEntity.ok(response);

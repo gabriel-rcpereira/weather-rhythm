@@ -1,11 +1,10 @@
-package com.grcp.weatherrhythm.locationsong.entrypoint;
+package com.grcp.weatherrhythm.locationsong.entrypoint.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grcp.weatherrhythm.locationsong.config.message.MessageConfiguration;
 import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
 import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
-import com.grcp.weatherrhythm.locationsong.entrypoint.rest.LocationSongController;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler.CustomExceptionHandler;
 import com.grcp.weatherrhythm.locationsong.gateway.message.impl.MessageSourceImpl;
 import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCityName;
@@ -98,6 +97,7 @@ class LocationSongControllerTest {
                 .andExpect(jsonPath("$.length()", is(2)))
                 .andExpect(jsonPath("$.service", is("001")))
                 .andExpect(jsonPath("$.errors.length()", is(1)))
-                .andExpect(jsonPath("$.errors[*].message", hasItem("The City must not be blank. ")));
+                .andExpect(jsonPath("$.errors[*].code", hasItem("001.001")))
+                .andExpect(jsonPath("$.errors[*].message", hasItem("The City must not be blank.")));
     }
 }
