@@ -7,7 +7,7 @@ import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler.CustomExceptionHandler;
 import com.grcp.weatherrhythm.locationsong.gateway.message.impl.MessageSourceImpl;
-import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCityName;
+import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCity;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,7 +35,7 @@ class LocationSongControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private FindLocationSongsByCityName findLocationSongsByCityName;
+    private FindLocationSongsByCity findLocationSongsByCity;
 
     @Test
     public void givenValidCity_whenRequestApiByCity_thenExpectsSuccessResponse() throws Exception {
@@ -54,7 +54,7 @@ class LocationSongControllerTest {
                 .build();
 
         //when
-        when(findLocationSongsByCityName.execute(city)).thenReturn(mockedLocationSong);
+        when(findLocationSongsByCity.execute(city)).thenReturn(mockedLocationSong);
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/cities/songs")
@@ -86,7 +86,7 @@ class LocationSongControllerTest {
                 .build();
 
         //when
-        when(findLocationSongsByCityName.execute(city)).thenReturn(mockedLocationSong);
+        when(findLocationSongsByCity.execute(city)).thenReturn(mockedLocationSong);
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/cities/songs")
