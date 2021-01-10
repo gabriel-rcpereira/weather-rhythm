@@ -9,10 +9,10 @@ import com.grcp.weatherrhythm.locationsong.domain.Song;
 import com.grcp.weatherrhythm.locationsong.gateway.song.PlaylistSongGateway;
 import com.grcp.weatherrhythm.locationsong.gateway.weather.LocationWeatherGateway;
 import java.util.Set;
-import javax.validation.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -32,13 +32,14 @@ class FindLocationSongsByCityTest {
         findLocationSongsByCity = new FindLocationSongsByCity(locationWeatherGateway, playlistSongGateway);
     }
 
-    @Test
-    void givenLocationValid_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist() {
+    @ParameterizedTest
+    @ValueSource(doubles = { 9.99, 0.0, -100.00 })
+    void givenLocationValid_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
 
-        Double celsiusTemperature = 9.99;
+        Double celsiusTemperature = temperature;
         LocationWeather mockedLocationWeather = LocationWeather.builder()
                 .celsiusTemperature(celsiusTemperature)
                 .build();
@@ -81,13 +82,14 @@ class FindLocationSongsByCityTest {
         Assertions.assertEquals(mockedSongsByCategory, locationSong.getSongs(), "expected songs");
     }
 
-    @Test
-    void givenLocationValid_whenTemperatureIsAboveThirtyDegrees_thenReturnPartyMusicPlaylist() {
+    @ParameterizedTest
+    @ValueSource(doubles = { 30.01, 50.00, 35.00 })
+    void givenLocationValid_whenTemperatureIsAboveThirtyDegrees_thenReturnPartyMusicPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
 
-        Double celsiusTemperature = 30.01;
+        Double celsiusTemperature = temperature;
         LocationWeather mockedLocationWeather = LocationWeather.builder()
                 .celsiusTemperature(celsiusTemperature)
                 .build();
@@ -130,13 +132,14 @@ class FindLocationSongsByCityTest {
         Assertions.assertEquals(mockedSongsByCategory, locationSong.getSongs(), "expected songs");
     }
 
-    @Test
-    void givenLocationValid_whenTemperatureIsBetweenFifteenAndThirty_thenReturnPopPlaylist() {
+    @ParameterizedTest
+    @ValueSource(doubles = { 15.00, 20.00, 29.99 })
+    void givenLocationValid_whenTemperatureIsBetweenFifteenAndThirty_thenReturnPopPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
 
-        Double celsiusTemperature = 30.00;
+        Double celsiusTemperature = temperature;
         LocationWeather mockedLocationWeather = LocationWeather.builder()
                 .celsiusTemperature(celsiusTemperature)
                 .build();
@@ -179,13 +182,14 @@ class FindLocationSongsByCityTest {
         Assertions.assertEquals(mockedSongsByCategory, locationSong.getSongs(), "expected songs");
     }
 
-    @Test
-    void givenLocationValid_whenTemperatureIsBetweenTenAndFourteenDegrees_thenReturnRockPlaylist() {
+    @ParameterizedTest
+    @ValueSource(doubles = { 10.00, 11.05, 14.00 })
+    void givenLocationValid_whenTemperatureIsBetweenTenAndFourteenDegrees_thenReturnRockPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
 
-        Double celsiusTemperature = 10.01;
+        Double celsiusTemperature = temperature;
         LocationWeather mockedLocationWeather = LocationWeather.builder()
                 .celsiusTemperature(celsiusTemperature)
                 .build();
