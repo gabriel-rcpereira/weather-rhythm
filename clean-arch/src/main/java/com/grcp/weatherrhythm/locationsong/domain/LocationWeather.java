@@ -16,21 +16,18 @@ import lombok.Value;
 @Builder(toBuilder = true)
 public class LocationWeather {
 
-    private final Set<RetrieveCategory> retrieveCategories = Set.of(
-            new RetrievePartyCategory(),
-            new RetrievePopCategory(),
-            new RetrieveRockCategory(),
-            new RetrieveClassicalCategory()
-    );
-
     private double celsiusTemperature;
 
     public Category retrieveCategoryByTemperature() {
-        Category category = this.retrieveCategories.stream()
-                .map(retrieveCategory -> {
-                    LocationWeather locationWeather = this;
-                    return retrieveCategory.execute(locationWeather);
-                })
+        final Set<RetrieveCategory> categoriesRetriever = Set.of(
+                new RetrievePartyCategory(),
+                new RetrievePopCategory(),
+                new RetrieveRockCategory(),
+                new RetrieveClassicalCategory()
+        );
+
+        Category category = categoriesRetriever.stream()
+                .map(retrieveCategory -> retrieveCategory.execute(this))
                 .filter(categoryOpt -> categoryOpt.isPresent())
                 .map(categoryOpt -> categoryOpt.get())
                 .findFirst()
