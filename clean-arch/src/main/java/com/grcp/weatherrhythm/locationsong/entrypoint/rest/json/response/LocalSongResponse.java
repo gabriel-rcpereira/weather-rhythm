@@ -1,6 +1,6 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.json.response;
 
-import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
+import com.grcp.weatherrhythm.locationsong.domain.LocalSong;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LocationSongResponse {
+public class LocalSongResponse {
 
-    private LocationInfoResponse locationInfo;
+    private LocalInfoResponse locationInfo;
     private Set<SongResponse> songs = new HashSet<>();
 
-    public LocationSongResponse(LocationSong locationSong) {
-        this.locationInfo = new LocationInfoResponse.Builder()
-                .withLocationInfo(locationSong.getLocation())
+    public LocalSongResponse(LocalSong localSong) {
+        this.locationInfo = new LocalInfoResponse.Builder()
+                .withLocationInfo(localSong.getLocation())
                 .build();
 
-        this.songs = locationSong.getSongs().stream()
+        this.songs = localSong.getSongs().stream()
                 .map(song -> new SongResponse.Builder()
                         .withSong(song)
                         .build())

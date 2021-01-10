@@ -1,9 +1,7 @@
 package com.grcp.weatherrhythm.locationsong.domain;
 
-import com.grcp.weatherrhythm.locationsong.domain.exception.DomainException;
 import java.util.HashSet;
 import java.util.Set;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -16,10 +14,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class LocationSong {
+public class LocalSong {
 
     @NotNull
-    private LocationInfo location;
+    private LocalInfo location;
     @Builder.Default
     private Set<Song> songs = new HashSet<>();
 

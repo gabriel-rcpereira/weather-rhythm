@@ -6,7 +6,7 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class LocationInfo {
+public class LocalInfo {
 
     @NotNull
     private String city;

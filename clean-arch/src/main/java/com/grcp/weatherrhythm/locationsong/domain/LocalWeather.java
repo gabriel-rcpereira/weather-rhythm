@@ -14,7 +14,7 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class LocationWeather {
+public class LocalWeather {
 
     private double celsiusTemperature;
 

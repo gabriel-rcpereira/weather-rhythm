@@ -1,7 +1,6 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.json.response;
 
-import com.grcp.weatherrhythm.locationsong.domain.LocationInfo;
-import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
+import com.grcp.weatherrhythm.locationsong.domain.LocalInfo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class LocationInfoResponse {
+public class LocalInfoResponse {
 
     private double celsiusTemperature;
 
@@ -21,13 +20,13 @@ public class LocationInfoResponse {
         public Builder() {
         }
 
-        public Builder withLocationInfo(LocationInfo locationInfo) {
-            this.celsiusTemperature = locationInfo.getCelsiusTemperature();
+        public Builder withLocationInfo(LocalInfo localInfo) {
+            this.celsiusTemperature = localInfo.getCelsiusTemperature();
             return this;
         }
 
-        public LocationInfoResponse build() {
-            return new LocationInfoResponse(this.celsiusTemperature);
+        public LocalInfoResponse build() {
+            return new LocalInfoResponse(this.celsiusTemperature);
         }
     }
 }

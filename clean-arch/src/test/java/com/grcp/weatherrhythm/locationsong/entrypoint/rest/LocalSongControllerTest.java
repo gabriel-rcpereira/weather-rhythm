@@ -3,12 +3,12 @@ package com.grcp.weatherrhythm.locationsong.entrypoint.rest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grcp.weatherrhythm.locationsong.config.message.MessageConfiguration;
 import com.grcp.weatherrhythm.locationsong.domain.Category;
-import com.grcp.weatherrhythm.locationsong.domain.LocationInfo;
-import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
+import com.grcp.weatherrhythm.locationsong.domain.LocalInfo;
+import com.grcp.weatherrhythm.locationsong.domain.LocalSong;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler.CustomExceptionHandler;
 import com.grcp.weatherrhythm.locationsong.gateway.message.impl.MessageSourceImpl;
-import com.grcp.weatherrhythm.locationsong.usecase.FindLocationSongsByCity;
+import com.grcp.weatherrhythm.locationsong.usecase.FindLocalSongsByCity;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,8 +26,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = { MessageConfiguration.class, MessageSourceImpl.class, LocationSongController.class, CustomExceptionHandler.class })
-class LocationSongControllerTest {
+@WebMvcTest(controllers = { MessageConfiguration.class, MessageSourceImpl.class, LocalSongController.class, CustomExceptionHandler.class })
+class LocalSongControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,13 +36,13 @@ class LocationSongControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private FindLocationSongsByCity findLocationSongsByCity;
+    private FindLocalSongsByCity findLocalSongsByCity;
 
     @Test
     public void givenValidCity_whenRequestApiByCity_thenExpectsSuccessResponse() throws Exception {
         //given
         var city = "Campinas";
-        LocationInfo mockedLocationInfo = LocationInfo.builder()
+        LocalInfo mockedLocalInfo = LocalInfo.builder()
                 .celsiusTemperature(32.0)
                 .city(city)
                 .category(Category.PARTY)
@@ -51,13 +51,13 @@ class LocationSongControllerTest {
                 Song.builder().artistName("artistOne").albumName("albumOne").apiTrack("trackOne").build(),
                 Song.builder().artistName("artistTwo").albumName("albumTwo").apiTrack("trackTwo").build()
         );
-        LocationSong mockedLocationSong = LocationSong.builder()
-                .location(mockedLocationInfo)
+        LocalSong mockedLocalSong = LocalSong.builder()
+                .location(mockedLocalInfo)
                 .songs(mockedSongs)
                 .build();
 
         //when
-        when(findLocationSongsByCity.execute(city)).thenReturn(mockedLocationSong);
+        when(findLocalSongsByCity.execute(city)).thenReturn(mockedLocalSong);
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/cities/songs")
