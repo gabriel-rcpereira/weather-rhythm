@@ -23,8 +23,8 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
     }
 
     @Override
-    public LocalWeather retrieveLocationWeatherByCityName(String cityName) {
-        log.info("Retrieving location weather by city [{}].", cityName);
+    public LocalWeather retrieveLocalWeatherByCityName(String cityName) {
+        log.info("Retrieving local weather by city [{}].", cityName);
         WeatherApiResponse weatherResponse = getWeatherByCityName(cityName);
         return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weatherResponse);
     }
@@ -33,8 +33,11 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
         try {
             return weatherApi.getWeatherByCityName(cityName);
         } catch (HttpStatusCodeException e) {
-            log.error("An error occurred. Failed request with getWeatherByCityName by city [{}].", cityName, e);
+            log.error("An error occurred. Failed sending local weather request by city [{}].", cityName, e);
             throw new GatewayException(retrieveGatewayErrorByStatus(e.getStatusCode()), e);
+        } catch (RuntimeException e) {
+            log.error("An error occurred. Failed trying to send local weather request by city [{}].", cityName, e);
+            throw new GatewayException(GatewayError.LOCAL_WEATHER_FAILED_REQUEST, e);
         }
     }
 
@@ -43,7 +46,7 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
             case NOT_FOUND:
                 return GatewayError.LOCAL_WEATHER_CITY_NAME_WAS_NOT_FOUND;
             default:
-                return GatewayError.LOCAL_WEATHER_FAILED_REQUEST;
+                return GatewayError.LOCAL_WEATHER_SERVER_ERROR;
         }
     }
 }

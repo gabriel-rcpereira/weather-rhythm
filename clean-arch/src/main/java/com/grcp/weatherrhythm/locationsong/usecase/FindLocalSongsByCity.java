@@ -27,7 +27,7 @@ public class FindLocalSongsByCity {
     public LocalSong execute(String city) {
         log.info("Finding location songs by city [{}].", city);
 
-        LocalWeather localWeather = localWeatherGateway.retrieveLocationWeatherByCityName(city);
+        LocalWeather localWeather = localWeatherGateway.retrieveLocalWeatherByCityName(city);
         Category category = localWeather.retrieveCategoryByTemperature();
         Set<Song> songsByCategory = playlistSongGateway.findSongsByCategory(category);
         LocalSong localSong = LocationSongMapper.INSTANCE.mapToLocationSong(city, category, localWeather, songsByCategory);

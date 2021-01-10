@@ -37,7 +37,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
             }
         }
 
-        return new Exception("An error occurred: " + response.reason());
+        return new RuntimeException("An error occurred: " + response.reason());
     }
 
     private byte[] retrieveBodyAsByte(Response response) {

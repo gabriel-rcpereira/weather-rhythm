@@ -63,7 +63,7 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocationWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.CLASSICAL)).thenReturn(mockedSongsByCategory);
 
         LocalSong localSong = findLocalSongsByCity.execute(cityName);
@@ -113,7 +113,7 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocationWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.PARTY)).thenReturn(mockedSongsByCategory);
 
         LocalSong localSong = findLocalSongsByCity.execute(cityName);
@@ -163,7 +163,7 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocationWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.POP)).thenReturn(mockedSongsByCategory);
 
         LocalSong localSong = findLocalSongsByCity.execute(cityName);
@@ -213,7 +213,7 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocationWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.ROCK)).thenReturn(mockedSongsByCategory);
 
         LocalSong localSong = findLocalSongsByCity.execute(cityName);

@@ -4,5 +4,5 @@ import com.grcp.weatherrhythm.locationsong.domain.LocalWeather;
 
 public interface LocalWeatherGateway {
 
-    LocalWeather retrieveLocationWeatherByCityName(String cityName);
+    LocalWeather retrieveLocalWeatherByCityName(String cityName);
 }
