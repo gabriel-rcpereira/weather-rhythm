@@ -50,4 +50,8 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+
+	filter {
+		excludeTestsMatching "*/restclient/*"
+	}
 }

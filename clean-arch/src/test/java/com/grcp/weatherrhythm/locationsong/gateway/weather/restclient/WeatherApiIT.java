@@ -1,11 +1,21 @@
 package com.grcp.weatherrhythm.locationsong.gateway.weather.restclient;
 
+import com.github.javafaker.Faker;
 import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json.WeatherApiResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.client.HttpClientErrorException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ * The tests were created to make sure how api works and how errors we would catch.
+ * They are not running during the usually test task.
+ * @author gabrielp
+ */
 @SpringBootTest
 class WeatherApiIT {
 
@@ -18,7 +28,7 @@ class WeatherApiIT {
         var city = "Campinas";
 
         //when
-        WeatherApiResponse weatherApiResponse = weatherApi.getWeather(city);
+        WeatherApiResponse weatherApiResponse = weatherApi.getWeatherByCityName(city);
 
         //then
         Assertions.assertNotNull(weatherApiResponse, "expected response from api");
@@ -27,16 +37,13 @@ class WeatherApiIT {
     @Test
     void givenInvalidCity_whenGetWeatherByCityName_thenReturnsResponseWithError() {
         //given
-        var city = "BluBlu";
+        var city = Faker.instance().pokemon().name();
 
         //when
-        WeatherApiResponse weatherApiResponse = weatherApi.getWeather(city);
+        Executable executableApi = () -> weatherApi.getWeatherByCityName(city);
 
         //then
-        Assertions.assertNotNull(weatherApiResponse, "expected response from api");
-        Assertions.assertNotNull(weatherApiResponse.getErrorDetail(), "expected error detail response from api");
-        Assertions.assertEquals(404, weatherApiResponse.getErrorDetail().getStatus(), "expected error detail response from api");
-        Assertions.assertEquals("city not found", weatherApiResponse.getErrorDetail().getMessage(), "expected error detail response from api");
+        assertThrows(HttpClientErrorException.class, executableApi, "expected HttpClientErrorException from api execution");
     }
 
 }
