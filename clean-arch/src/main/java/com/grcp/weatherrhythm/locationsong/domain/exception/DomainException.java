@@ -1,15 +1,14 @@
 package com.grcp.weatherrhythm.locationsong.domain.exception;
 
-import java.util.Set;
-import javax.validation.ConstraintViolation;
+import com.grcp.weatherrhythm.locationsong.domain.exception.errors.DomainError;
 
 public class DomainException extends RuntimeException {
 
-    private Set<? extends ConstraintViolation<?>> constraintViolations;
+    private final DomainError domainError;
 
-    public DomainException(Set<? extends ConstraintViolation<?>> constraintViolations) {
+    public DomainException(DomainError domainError) {
         super();
 
-        this.constraintViolations = constraintViolations;
+        this.domainError = domainError;
     }
 }

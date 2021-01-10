@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LocationSongResponse {
 
-    private LocationWeatherResponse locationWeather;
+    private LocationInfoResponse locationInfo;
     private Set<SongResponse> songs = new HashSet<>();
 
     public LocationSongResponse(LocationSong locationSong) {
-        this.locationWeather = new LocationWeatherResponse.Builder()
-                .withLocationWeather(locationSong.getLocationWeather())
+        this.locationInfo = new LocationInfoResponse.Builder()
+                .withLocationInfo(locationSong.getLocation())
                 .build();
 
         this.songs = locationSong.getSongs().stream()

@@ -19,17 +19,17 @@ import lombok.NoArgsConstructor;
 public class LocationSong {
 
     @NotNull
-    private LocationWeather locationWeather;
+    private LocationInfo location;
     @Builder.Default
     private Set<Song> songs = new HashSet<>();
 
     public void validate(Validator validator) {
-        Set<ConstraintViolation<LocationSong>> locationSongViolations = validator.validate(this);
-        if (!locationSongViolations.isEmpty()) {
-            throw new DomainException(locationSongViolations);
-        }
-
-        this.locationWeather.validate(validator);
-        this.songs.forEach(song -> song.validate(validator));
+//        Set<ConstraintViolation<LocationSong>> locationSongViolations = validator.validate(this);
+//        if (!locationSongViolations.isEmpty()) {
+//            throw new DomainException(locationSongViolations);
+//        }
+//
+//        this.locationWeather.validate(validator);
+//        this.songs.forEach(song -> song.validate(validator));
     }
 }

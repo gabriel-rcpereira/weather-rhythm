@@ -1,21 +1,34 @@
 package com.grcp.weatherrhythm.locationsong.usecase.mapper;
 
+import com.grcp.weatherrhythm.locationsong.domain.Category;
+import com.grcp.weatherrhythm.locationsong.domain.LocationInfo;
 import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
 import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import java.util.Set;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
-public abstract class LocationSongMapper {
+public class LocationSongMapper {
 
-    public static final LocationSongMapper INSTANCE = Mappers.getMapper(LocationSongMapper.class);
+    public static final LocationSongMapper INSTANCE = new LocationSongMapper();
 
-    public LocationSong mapToLocationSong(LocationWeather locationWeather, Set<Song> songs) {
+    private LocationSongMapper() {
+    }
+
+    public LocationSong mapToLocationSong(String city,
+                                          Category category,
+                                          LocationWeather locationWeather,
+                                          Set<Song> songs) {
         return LocationSong.builder()
-                .locationWeather(locationWeather)
+                .location(mapToLocationInfo(city, category, locationWeather))
                 .songs(songs)
+                .build();
+    }
+
+    private LocationInfo mapToLocationInfo(String city, Category category, LocationWeather locationWeather) {
+        return LocationInfo.builder()
+                .city(city)
+                .category(category)
+                .celsiusTemperature(locationWeather.getCelsiusTemperature())
                 .build();
     }
 }

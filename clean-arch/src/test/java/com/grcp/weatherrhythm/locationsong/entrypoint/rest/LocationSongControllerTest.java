@@ -2,8 +2,9 @@ package com.grcp.weatherrhythm.locationsong.entrypoint.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grcp.weatherrhythm.locationsong.config.message.MessageConfiguration;
+import com.grcp.weatherrhythm.locationsong.domain.Category;
+import com.grcp.weatherrhythm.locationsong.domain.LocationInfo;
 import com.grcp.weatherrhythm.locationsong.domain.LocationSong;
-import com.grcp.weatherrhythm.locationsong.domain.LocationWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler.CustomExceptionHandler;
 import com.grcp.weatherrhythm.locationsong.gateway.message.impl.MessageSourceImpl;
@@ -41,15 +42,17 @@ class LocationSongControllerTest {
     public void givenValidCity_whenRequestApiByCity_thenExpectsSuccessResponse() throws Exception {
         //given
         var city = "Campinas";
-        LocationWeather mockedLocationWeather = LocationWeather.builder()
+        LocationInfo mockedLocationInfo = LocationInfo.builder()
                 .celsiusTemperature(32.0)
+                .city(city)
+                .category(Category.PARTY)
                 .build();
         Set<Song> mockedSongs = Set.of(
                 Song.builder().artistName("artistOne").albumName("albumOne").apiTrack("trackOne").build(),
                 Song.builder().artistName("artistTwo").albumName("albumTwo").apiTrack("trackTwo").build()
         );
         LocationSong mockedLocationSong = LocationSong.builder()
-                .locationWeather(mockedLocationWeather)
+                .location(mockedLocationInfo)
                 .songs(mockedSongs)
                 .build();
 
@@ -65,7 +68,7 @@ class LocationSongControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", is(2)))
 
-                .andExpect(jsonPath("$.locationWeather.celsiusTemperature", is(32.0)))
+                .andExpect(jsonPath("$.locationInfo.celsiusTemperature", is(32.0)))
 
                 .andExpect(jsonPath("$.songs.length()", is(2)))
                 .andExpect(jsonPath("$.songs[*].artistName", hasItem("artistOne")))
@@ -80,14 +83,7 @@ class LocationSongControllerTest {
     @ParameterizedTest
     @ValueSource(strings = { "", " " })
     public void givenInvalidCity_whenRequestApiByCity_thenExpectsBadRequest(String city) throws Exception {
-        //given
-        LocationSong mockedLocationSong = LocationSong.builder()
-                .locationWeather(LocationWeather.builder().build())
-                .build();
-
         //when
-        when(findLocationSongsByCity.execute(city)).thenReturn(mockedLocationSong);
-
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.get("/api/v1/cities/songs")
                         .param("city", city));
