@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum DomainError {
-    ANY_CATEGORY_FOUND("001.001");
+
+    ANY_CATEGORY_FOUND("003.001");
 
     private String errorCode;
 

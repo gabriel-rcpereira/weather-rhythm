@@ -1,10 +1,9 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.json.response;
 
-import com.grcp.weatherrhythm.locationsong.gateway.message.MessageGateway;
+import com.grcp.weatherrhythm.locationsong.domain.message.ErrorMessage;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.ConstraintViolationException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,25 +19,31 @@ public class ServiceErrorResponse {
 
     public static class Builder {
 
-        private Set<ErrorResponse> errors = new HashSet<>();
-        private MessageGateway messageGateway;
+        private final Set<ErrorMessage> errorMessages;
 
-        public Builder(MessageGateway messageGateway) {
-            this.messageGateway = messageGateway;
+        public Builder() {
+            this.errorMessages = new HashSet<>();
         }
 
-        public Builder withConstraintViolationException(ConstraintViolationException e) {
-            this.errors = e.getConstraintViolations().stream()
-                    .map(constraintViolation -> new ErrorResponse.Builder(messageGateway)
-                            .withConstraintViolation(constraintViolation)
-                            .build())
-                    .collect(Collectors.toSet());
+        public Builder errorMessages(Set<ErrorMessage> errorMessages) {
+            this.errorMessages.addAll(errorMessages);
+            return this;
+        }
 
+        public Builder errorMessage(ErrorMessage errorMessage) {
+            this.errorMessages.add(errorMessage);
             return this;
         }
 
         public ServiceErrorResponse build() {
-            return new ServiceErrorResponse(errors);
+            Set<ErrorResponse> errorsResponse = this.errorMessages.stream().map(this::createErrorResponse).collect(Collectors.toSet());
+            return new ServiceErrorResponse(errorsResponse);
+        }
+
+        private ErrorResponse createErrorResponse(ErrorMessage errorMessage) {
+            return new ErrorResponse.Builder()
+                    .errorMessage(errorMessage)
+                    .build();
         }
     }
 }

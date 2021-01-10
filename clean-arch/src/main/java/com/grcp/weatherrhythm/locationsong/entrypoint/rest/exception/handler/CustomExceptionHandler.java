@@ -1,7 +1,11 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler;
 
+import com.grcp.weatherrhythm.locationsong.domain.exception.DomainException;
+import com.grcp.weatherrhythm.locationsong.domain.message.ErrorMessage;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.json.response.ServiceErrorResponse;
 import com.grcp.weatherrhythm.locationsong.gateway.message.MessageGateway;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +27,31 @@ public class CustomExceptionHandler {
     ResponseEntity<ServiceErrorResponse> handleConstraintViolationException(ConstraintViolationException e) {
         log.error("An entrypoint constraint was violated.", e);
 
-        ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder(messageGateway)
-                .withConstraintViolationException(e)
+        Set<ErrorMessage> errorMessages = e.getConstraintViolations().stream()
+                .map(constraintViolation -> retrieveErrorMessage(constraintViolation.getMessage()))
+                .collect(Collectors.toSet());
+
+        ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder()
+                .errorMessages(errorMessages)
                 .build();
 
         return ResponseEntity.badRequest().body(serviceErrorResponse);
+    }
+
+    @ExceptionHandler(DomainException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    ResponseEntity<ServiceErrorResponse> handleDomainException(DomainException e) {
+        log.error("An domain error occurred.", e);
+
+        ErrorMessage errorMessage = retrieveErrorMessage(e.getDomainError().getErrorCode());
+        ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder()
+                .errorMessage(errorMessage)
+                .build();
+
+        return ResponseEntity.unprocessableEntity().body(serviceErrorResponse);
+    }
+
+    private ErrorMessage retrieveErrorMessage(String message) {
+        return messageGateway.retrieveErrorMessage(message);
     }
 }

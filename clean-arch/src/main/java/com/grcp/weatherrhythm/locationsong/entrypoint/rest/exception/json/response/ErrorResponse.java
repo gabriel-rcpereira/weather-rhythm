@@ -1,8 +1,6 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.json.response;
 
 import com.grcp.weatherrhythm.locationsong.domain.message.ErrorMessage;
-import com.grcp.weatherrhythm.locationsong.gateway.message.MessageGateway;
-import javax.validation.ConstraintViolation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,20 +16,12 @@ public class ErrorResponse {
 
     public static class Builder {
 
-        private final MessageGateway messageGateway;
-
         private String code;
         private String message;
 
-        public Builder(MessageGateway messageGateway) {
-            this.messageGateway = messageGateway;
-        }
-
-        public Builder withConstraintViolation(ConstraintViolation<?> e) {
-            ErrorMessage message = messageGateway.retrieveErrorMessage(e.getMessage());
-            this.code = e.getMessage();
-            this.message = message.getMessage();
-
+        public Builder errorMessage(ErrorMessage errorMessage) {
+            this.code = errorMessage.getCode();
+            this.message = errorMessage.getMessage();
             return this;
         }
 

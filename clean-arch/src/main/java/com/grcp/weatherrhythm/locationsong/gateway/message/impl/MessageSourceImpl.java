@@ -22,6 +22,6 @@ public class MessageSourceImpl implements MessageGateway {
         log.info("Retrieving error message from key [{}].", key);
 
         String message = messageSource.getMessage(key, args, Locale.getDefault());
-        return new ErrorMessage(message);
+        return new ErrorMessage(key, message);
     }
 }
