@@ -1,6 +1,7 @@
 package com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.handler;
 
 import com.grcp.weatherrhythm.locationsong.domain.exception.DomainException;
+import com.grcp.weatherrhythm.locationsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.locationsong.domain.message.ErrorMessage;
 import com.grcp.weatherrhythm.locationsong.entrypoint.rest.exception.json.response.ServiceErrorResponse;
 import com.grcp.weatherrhythm.locationsong.gateway.message.MessageGateway;
@@ -43,12 +44,25 @@ public class CustomExceptionHandler {
     ResponseEntity<ServiceErrorResponse> handleDomainException(DomainException e) {
         log.error("An domain error occurred.", e);
 
-        ErrorMessage errorMessage = retrieveErrorMessage(e.getDomainError().getErrorCode());
+        ErrorMessage errorMessage = retrieveErrorMessage(e.getError().getErrorCode());
         ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder()
                 .errorMessage(errorMessage)
                 .build();
 
         return ResponseEntity.unprocessableEntity().body(serviceErrorResponse);
+    }
+
+    @ExceptionHandler(GatewayException.class)
+    ResponseEntity<ServiceErrorResponse> handleGatewayException(GatewayException e) {
+        log.error("An domain error occurred.", e);
+
+        ErrorMessage errorMessage = retrieveErrorMessage(e.getError().getErrorCode());
+        ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder()
+                .errorMessage(errorMessage)
+                .build();
+        HttpStatus statusError = e.getError().getStatus();
+
+        return ResponseEntity.status(statusError).body(serviceErrorResponse);
     }
 
     private ErrorMessage retrieveErrorMessage(String message) {

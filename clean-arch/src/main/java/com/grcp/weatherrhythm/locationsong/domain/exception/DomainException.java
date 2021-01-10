@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public class DomainException extends RuntimeException {
 
-    private final DomainError domainError;
+    private final DomainError error;
 
-    public DomainException(DomainError domainError) {
+    public DomainException(DomainError error) {
         super();
 
-        this.domainError = domainError;
+        this.error = error;
     }
 }
