@@ -30,7 +30,6 @@ public class LocationSongController {
         log.info("Getting location songs by City [{}].", city);
 
         LocationSong locationSong = findLocationSongsByCity.execute(city);
-
         LocationSongResponse response = new LocationSongResponse(locationSong);
 
         log.info("Getting location songs by City [{}] executed with success.", city);

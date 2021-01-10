@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+api:
+  weather:
+    name: weatherApi
+    url: https://api.openweathermap.org
+    id: dd822d5631f3dafc40163e815cdf5f10
