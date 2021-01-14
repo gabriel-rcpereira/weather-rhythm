@@ -77,7 +77,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherApi.getWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.NOT_FOUND));
+        when(weatherApi.getWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
