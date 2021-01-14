@@ -34,7 +34,7 @@ class FindLocalSongsByCityTest {
 
     @ParameterizedTest
     @ValueSource(doubles = { 9.99, 0.0, -100.00 })
-    void givenLocationValid_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist(double temperature) {
+    void givenValidLocal_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
@@ -84,7 +84,7 @@ class FindLocalSongsByCityTest {
 
     @ParameterizedTest
     @ValueSource(doubles = { 30.01, 50.00, 35.00 })
-    void givenLocationValid_whenTemperatureIsAboveThirtyDegrees_thenReturnPartyMusicPlaylist(double temperature) {
+    void givenValidLocal_whenTemperatureIsAboveThirtyDegrees_thenReturnPartyMusicPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
@@ -134,7 +134,7 @@ class FindLocalSongsByCityTest {
 
     @ParameterizedTest
     @ValueSource(doubles = { 15.00, 20.00, 29.99 })
-    void givenLocationValid_whenTemperatureIsBetweenFifteenAndThirty_thenReturnPopPlaylist(double temperature) {
+    void givenValidLocal_whenTemperatureIsBetweenFifteenAndThirty_thenReturnPopPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
@@ -184,7 +184,7 @@ class FindLocalSongsByCityTest {
 
     @ParameterizedTest
     @ValueSource(doubles = { 10.00, 11.05, 14.00 })
-    void givenLocationValid_whenTemperatureIsBetweenTenAndFourteenDegrees_thenReturnRockPlaylist(double temperature) {
+    void givenValidLocal_whenTemperatureIsBetweenTenAndFourteenDegrees_thenReturnRockPlaylist(double temperature) {
         //given
         Faker faker = Faker.instance();
         String cityName = faker.address().city();
