@@ -13,4 +13,8 @@ public class GatewayException extends RuntimeException {
 
         this.error = error;
     }
+
+    public GatewayException(GatewayError error) {
+        this(error, null);
+    }
 }
