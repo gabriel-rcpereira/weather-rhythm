@@ -7,11 +7,11 @@ import com.grcp.weatherrhythm.locationsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.locationsong.domain.Song;
 import java.util.Set;
 
-public class LocationSongMapper {
+public class LocalSongMapper {
 
-    public static final LocationSongMapper INSTANCE = new LocationSongMapper();
+    public static final LocalSongMapper INSTANCE = new LocalSongMapper();
 
-    private LocationSongMapper() {
+    private LocalSongMapper() {
     }
 
     public LocalSong mapToLocationSong(String city,
