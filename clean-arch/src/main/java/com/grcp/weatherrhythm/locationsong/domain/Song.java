@@ -15,12 +15,4 @@ public class Song {
     private String albumName;
     @NotBlank(message = "002.006")
     private String apiTrack;
-
-    public void validate(Validator validator) {
-//        Set<ConstraintViolation<Song>> constraintViolations = validator.validate(this);
-//
-//        if (!constraintViolations.isEmpty()) {
-//            throw new DomainException(constraintViolations);
-//        }
-    }
 }
