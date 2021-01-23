@@ -1,7 +1,7 @@
-package com.grcp.weatherrhythm.locationsong.gateway.weather.restclient;
+package com.grcp.weatherrhythm.locationsong.gateway.weather.client;
 
 import com.github.javafaker.Faker;
-import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json.WeatherApiResponse;
+import com.grcp.weatherrhythm.locationsong.gateway.weather.client.model.WeatherClientModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author gabrielp
  */
 @SpringBootTest
-class WeatherApiIT {
+class WeatherClientIT {
 
     @Autowired
-    private WeatherApi weatherApi;
+    private WeatherClient weatherClient;
 
     @Test
     void givenValidCity_whenGetWeatherByCityName_thenReturnsLocalWeather() {
@@ -28,10 +28,10 @@ class WeatherApiIT {
         var city = "Campinas";
 
         //when
-        WeatherApiResponse weatherApiResponse = weatherApi.getWeatherByCityName(city);
+        WeatherClientModel weatherClientModel = weatherClient.getWeatherByCityName(city);
 
         //then
-        Assertions.assertNotNull(weatherApiResponse, "expected response from api");
+        Assertions.assertNotNull(weatherClientModel, "expected response from api");
     }
 
     @Test
@@ -40,7 +40,7 @@ class WeatherApiIT {
         var city = Faker.instance().pokemon().name();
 
         //when
-        Executable executableApi = () -> weatherApi.getWeatherByCityName(city);
+        Executable executableApi = () -> weatherClient.getWeatherByCityName(city);
 
         //then
         assertThrows(HttpClientErrorException.class, executableApi, "expected HttpClientErrorException from api execution");

@@ -5,8 +5,8 @@ import com.grcp.weatherrhythm.locationsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.locationsong.domain.exception.errors.GatewayError;
 import com.grcp.weatherrhythm.locationsong.gateway.weather.LocalWeatherGateway;
 import com.grcp.weatherrhythm.locationsong.gateway.weather.mapper.LocationWeatherMapper;
-import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.WeatherApi;
-import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json.WeatherApiResponse;
+import com.grcp.weatherrhythm.locationsong.gateway.weather.client.WeatherClient;
+import com.grcp.weatherrhythm.locationsong.gateway.weather.client.model.WeatherClientModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,22 +16,22 @@ import org.springframework.web.client.HttpStatusCodeException;
 @Component
 public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
 
-    private final WeatherApi weatherApi;
+    private final WeatherClient weatherClient;
 
-    public LocalWeatherGatewayImpl(WeatherApi weatherApi) {
-        this.weatherApi = weatherApi;
+    public LocalWeatherGatewayImpl(WeatherClient weatherClient) {
+        this.weatherClient = weatherClient;
     }
 
     @Override
     public LocalWeather retrieveLocalWeatherByCityName(String cityName) {
         log.info("Retrieving local weather by city [{}].", cityName);
-        WeatherApiResponse weatherResponse = getWeatherByCityName(cityName);
+        WeatherClientModel weatherResponse = getWeatherByCityName(cityName);
         return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weatherResponse);
     }
 
-    private WeatherApiResponse getWeatherByCityName(String cityName) {
+    private WeatherClientModel getWeatherByCityName(String cityName) {
         try {
-            return weatherApi.getWeatherByCityName(cityName);
+            return weatherClient.getWeatherByCityName(cityName);
         } catch (HttpStatusCodeException e) {
             log.error("An error occurred. Failed sending local weather request by city [{}].", cityName, e);
             throw new GatewayException(retrieveGatewayErrorByStatus(e.getStatusCode()), e);

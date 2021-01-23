@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json;
+package com.grcp.weatherrhythm.locationsong.gateway.weather.client.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -12,7 +12,7 @@ import org.apache.commons.math3.util.Precision;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class WeatherMainResponse {
+public class WeatherMainModel {
 
     private double temp;
 

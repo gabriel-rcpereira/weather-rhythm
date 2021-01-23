@@ -1,8 +1,8 @@
 package com.grcp.weatherrhythm.locationsong.gateway.weather.mapper;
 
 import com.grcp.weatherrhythm.locationsong.domain.LocalWeather;
-import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json.WeatherMainResponse;
-import com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json.WeatherApiResponse;
+import com.grcp.weatherrhythm.locationsong.gateway.weather.client.model.WeatherMainModel;
+import com.grcp.weatherrhythm.locationsong.gateway.weather.client.model.WeatherClientModel;
 
 public class LocationWeatherMapper {
 
@@ -11,10 +11,10 @@ public class LocationWeatherMapper {
     private LocationWeatherMapper() {
     }
 
-    public LocalWeather mapToLocationWeather(WeatherApiResponse weatherResponse) {
-        WeatherMainResponse weatherMainResponse = weatherResponse.getMain();
+    public LocalWeather mapToLocationWeather(WeatherClientModel weatherResponse) {
+        WeatherMainModel weatherMainModel = weatherResponse.getMain();
         return LocalWeather.builder()
-                .celsiusTemperature(weatherMainResponse.toCelsius())
+                .celsiusTemperature(weatherMainModel.toCelsius())
                 .build();
     }
 }

@@ -1,7 +1,7 @@
-package com.grcp.weatherrhythm.locationsong.gateway.song.impl.mapper;
+package com.grcp.weatherrhythm.locationsong.gateway.song.impl.spotify.mapper;
 
-import com.grcp.weatherrhythm.locationsong.domain.Song;
-import com.wrapper.spotify.model_objects.specification.PlaylistSimplified;
+import com.grcp.weatherrhythm.locationsong.gateway.song.client.model.SongDetailClientModel;
+import com.grcp.weatherrhythm.locationsong.gateway.song.client.model.SongWrapperClientModel;
 import com.wrapper.spotify.model_objects.specification.PlaylistTrack;
 import com.wrapper.spotify.model_objects.specification.Track;
 import java.util.Arrays;
@@ -16,15 +16,19 @@ public class PlaylistSongGatewayMapper {
     private PlaylistSongGatewayMapper() {
     }
 
-    public Set<Song> mapToSong(PlaylistTrack[] playlistTracks) {
-        return Stream.of(playlistTracks)
-                .map(playlistTrack -> (Track)playlistTrack.getTrack())
+    public SongWrapperClientModel mapToSong(PlaylistTrack[] playlistTracks) {
+        Set<SongDetailClientModel> songs = Stream.of(playlistTracks)
+                .map(playlistTrack -> (Track) playlistTrack.getTrack())
                 .map(track -> mapToSong(track))
                 .collect(Collectors.toSet());
+
+        return SongWrapperClientModel.builder()
+                .songs(songs)
+                .build();
     }
 
-    private Song mapToSong(Track track) {
-        return Song.builder()
+    private SongDetailClientModel mapToSong(Track track) {
+        return SongDetailClientModel.builder()
                 .artistName(formatArtistNames(track))
                 .apiTrack(track.getHref())
                 .albumName(track.getAlbum().getName())

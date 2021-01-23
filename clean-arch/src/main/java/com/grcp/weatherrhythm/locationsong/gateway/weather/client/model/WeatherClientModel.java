@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.locationsong.gateway.weather.restclient.json;
+package com.grcp.weatherrhythm.locationsong.gateway.weather.client.model;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class WeatherApiResponse {
+public class WeatherClientModel {
 
-    private WeatherMainResponse main;
-    private WeatherErrorDetail errorDetail;
+    private WeatherMainModel main;
+    private WeatherErrorDetailModel errorDetail;
 }
