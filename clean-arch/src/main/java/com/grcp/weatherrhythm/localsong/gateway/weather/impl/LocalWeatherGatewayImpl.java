@@ -29,6 +29,11 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
         return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weatherResponse);
     }
 
+    @Override
+    public LocalWeather retrieveLocalWeatherByLatitudeAndLongitude(double latitude, double longitude) {
+        return null;
+    }
+
     private WeatherClientModel getWeatherByCityName(String cityName) {
         try {
             return weatherClient.getWeatherByCityName(cityName);

@@ -17,16 +17,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
 class LocalWeatherGatewayImplTest {
 
     private LocalWeatherGatewayImpl localWeatherGateway;
 
-    @Mock
-    private WeatherClient weatherClient;
+    private WeatherClient weatherClient = mock(WeatherClient.class);
 
     @BeforeEach
     void setUp() {

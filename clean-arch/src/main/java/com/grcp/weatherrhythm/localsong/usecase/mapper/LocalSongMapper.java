@@ -14,20 +14,16 @@ public class LocalSongMapper {
     private LocalSongMapper() {
     }
 
-    public LocalSong mapToLocationSong(String city,
-                                       Category category,
-                                       LocalWeather localWeather,
+    public LocalSong mapToLocationSong(LocalWeather localWeather,
                                        Set<Song> songs) {
         return LocalSong.builder()
-                .location(mapToLocationInfo(city, category, localWeather))
+                .location(mapToLocationInfo(localWeather))
                 .songs(songs)
                 .build();
     }
 
-    private LocalInfo mapToLocationInfo(String city, Category category, LocalWeather localWeather) {
+    private LocalInfo mapToLocationInfo(LocalWeather localWeather) {
         return LocalInfo.builder()
-                .city(city)
-                .category(category)
                 .celsiusTemperature(localWeather.getCelsiusTemperature())
                 .build();
     }

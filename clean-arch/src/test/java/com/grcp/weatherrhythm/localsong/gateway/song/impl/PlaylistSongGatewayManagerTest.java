@@ -19,15 +19,14 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 public class PlaylistSongGatewayManagerTest {
 
     private PlaylistSongGatewayManager playlistSongGatewayManager;
 
-    @Mock
-    private SpotifyApiGatewayImpl songClient;
+    private SpotifyApiGatewayImpl songClient = mock(SpotifyApiGatewayImpl.class);
 
     @BeforeEach
     void setUp() {

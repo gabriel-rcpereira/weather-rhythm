@@ -13,30 +13,30 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class FindLocalSongsByCityTest {
+class FindLocalSongsByLatitudeAndLongitudeTest {
 
-    private FindLocalSongsByCity findLocalSongsByCity;
+    private FindLocalSongsByLatitudeAndLongitude findLocalSongsByLatitudeAndLongitude;
+    private Faker faker = Faker.instance();
 
-    private LocalWeatherGateway localWeatherGateway = mock(LocalWeatherGateway.class);
-    private PlaylistSongGateway playlistSongGateway = mock(PlaylistSongGateway.class);
+    private LocalWeatherGateway localWeatherGateway = Mockito.mock(LocalWeatherGateway.class);
+    private PlaylistSongGateway playlistSongGateway = Mockito.mock(PlaylistSongGateway.class);
 
     @BeforeEach
-    public void loadContext() {
-        findLocalSongsByCity = new FindLocalSongsByCity(localWeatherGateway, playlistSongGateway);
+    void setUp() {
+        this.findLocalSongsByLatitudeAndLongitude = new FindLocalSongsByLatitudeAndLongitude(localWeatherGateway, playlistSongGateway);
+        this.faker = Faker.instance();
     }
 
     @ParameterizedTest
     @ValueSource(doubles = { 9.99, 0.0, -100.00 })
-    void givenValidLocal_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist(double temperature) {
+    void givenValidLatitudeAndLongitude_whenTemperatureIsBelowTenDegrees_thenReturnClassicalMusicPlaylist(double temperature) {
         //given
-        Faker faker = Faker.instance();
-        String cityName = faker.address().city();
+        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double longitude = faker.number().randomDouble(5, -45, 45);
 
         Double celsiusTemperature = temperature;
         LocalWeather mockedLocalWeather = LocalWeather.builder()
@@ -62,10 +62,10 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.CLASSICAL)).thenReturn(mockedSongsByCategory);
 
-        LocalSong localSong = findLocalSongsByCity.execute(cityName);
+        LocalSong localSong = findLocalSongsByLatitudeAndLongitude.execute(latitude, longitude);
 
         //then
         Assertions.assertNotNull(localSong);
@@ -83,8 +83,8 @@ class FindLocalSongsByCityTest {
     @ValueSource(doubles = { 30.01, 50.00, 35.00 })
     void givenValidLocal_whenTemperatureIsAboveThirtyDegrees_thenReturnPartyMusicPlaylist(double temperature) {
         //given
-        Faker faker = Faker.instance();
-        String cityName = faker.address().city();
+        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double longitude = faker.number().randomDouble(5, -45, 45);
 
         Double celsiusTemperature = temperature;
         LocalWeather mockedLocalWeather = LocalWeather.builder()
@@ -110,10 +110,10 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.PARTY)).thenReturn(mockedSongsByCategory);
 
-        LocalSong localSong = findLocalSongsByCity.execute(cityName);
+        LocalSong localSong = findLocalSongsByLatitudeAndLongitude.execute(latitude, longitude);
 
         //then
         Assertions.assertNotNull(localSong);
@@ -131,8 +131,8 @@ class FindLocalSongsByCityTest {
     @ValueSource(doubles = { 15.00, 20.00, 29.99 })
     void givenValidLocal_whenTemperatureIsBetweenFifteenAndThirty_thenReturnPopPlaylist(double temperature) {
         //given
-        Faker faker = Faker.instance();
-        String cityName = faker.address().city();
+        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double longitude = faker.number().randomDouble(5, -45, 45);
 
         Double celsiusTemperature = temperature;
         LocalWeather mockedLocalWeather = LocalWeather.builder()
@@ -158,10 +158,10 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.POP)).thenReturn(mockedSongsByCategory);
 
-        LocalSong localSong = findLocalSongsByCity.execute(cityName);
+        LocalSong localSong = findLocalSongsByLatitudeAndLongitude.execute(latitude, longitude);
 
         //then
         Assertions.assertNotNull(localSong);
@@ -179,8 +179,8 @@ class FindLocalSongsByCityTest {
     @ValueSource(doubles = { 10.00, 11.05, 14.00 })
     void givenValidLocal_whenTemperatureIsBetweenTenAndFourteenDegrees_thenReturnRockPlaylist(double temperature) {
         //given
-        Faker faker = Faker.instance();
-        String cityName = faker.address().city();
+        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double longitude = faker.number().randomDouble(5, -45, 45);
 
         Double celsiusTemperature = temperature;
         LocalWeather mockedLocalWeather = LocalWeather.builder()
@@ -206,10 +206,10 @@ class FindLocalSongsByCityTest {
         );
 
         //when
-        when(localWeatherGateway.retrieveLocalWeatherByCityName(cityName)).thenReturn(mockedLocalWeather);
+        when(localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude)).thenReturn(mockedLocalWeather);
         when(playlistSongGateway.findSongsByCategory(Category.ROCK)).thenReturn(mockedSongsByCategory);
 
-        LocalSong localSong = findLocalSongsByCity.execute(cityName);
+        LocalSong localSong = findLocalSongsByLatitudeAndLongitude.execute(latitude, longitude);
 
         //then
         Assertions.assertNotNull(localSong);
@@ -222,4 +222,5 @@ class FindLocalSongsByCityTest {
         Assertions.assertEquals(3, localSong.getSongs().size(), "expected number of songs");
         Assertions.assertEquals(mockedSongsByCategory, localSong.getSongs(), "expected songs");
     }
+
 }

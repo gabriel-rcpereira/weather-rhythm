@@ -9,9 +9,5 @@ import lombok.Value;
 public class LocalInfo {
 
     @NotNull
-    private String city;
-    @NotNull
     private double celsiusTemperature;
-    @NotNull
-    private Category category;
 }

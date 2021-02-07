@@ -58,8 +58,6 @@ class LocalSongControllerTest {
         var city = "Campinas";
         LocalInfo mockedLocalInfo = LocalInfo.builder()
                 .celsiusTemperature(32.0)
-                .city(city)
-                .category(Category.PARTY)
                 .build();
         Set<Song> mockedSongs = Set.of(
                 Song.builder().artistName("artistOne").albumName("albumOne").apiTrack("trackOne").build(),
@@ -119,9 +117,7 @@ class LocalSongControllerTest {
 
         double celsiusTemperature = faker.number().randomDouble(2, -20, 45);
         LocalInfo mockedLocalInfo = LocalInfo.builder()
-                .city(faker.address().city())
                 .celsiusTemperature(celsiusTemperature)
-                .category(Category.PARTY)
                 .build();
 
         Song mockedSongOne = Song.builder()

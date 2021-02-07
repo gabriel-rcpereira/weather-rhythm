@@ -25,14 +25,14 @@ public class FindLocalSongsByCity {
     }
 
     public LocalSong execute(String city) {
-        log.info("Finding local songs by city [{}].", city);
+        log.info("Executing finding local songs by city [{}].", city);
 
         LocalWeather localWeather = localWeatherGateway.retrieveLocalWeatherByCityName(city);
         Category category = localWeather.retrieveCategoryByTemperature();
         Set<Song> songsByCategory = playlistSongGateway.findSongsByCategory(category);
-        LocalSong localSong = LocalSongMapper.INSTANCE.mapToLocationSong(city, category, localWeather, songsByCategory);
+        LocalSong localSong = LocalSongMapper.INSTANCE.mapToLocationSong(localWeather, songsByCategory);
 
-        log.info("Finding local songs by city [{}] executed with success.", city);
+        log.info("Executing finding local songs by city [{}] with success.", city);
         return localSong;
     }
 }
