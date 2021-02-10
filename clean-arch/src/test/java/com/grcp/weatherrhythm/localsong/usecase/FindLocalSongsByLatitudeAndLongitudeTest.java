@@ -31,8 +31,8 @@ class FindLocalSongsByLatitudeAndLongitudeTest {
     @Test
     void givenCityName_whenReturnsLocalWeatherAndLocalSongs_thenReturnsLocalSong() {
         //given
-        Double latitude = faker.number().randomDouble(5, -180, 180);
-        Double longitude = faker.number().randomDouble(5, -45, 45);
+        Double latitude = faker.number().randomDouble(5, -95, 95);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
 
         double celsiusTemperature = faker.random().nextDouble();
         LocalWeather mockedLocalWeather = LocalWeather.builder()

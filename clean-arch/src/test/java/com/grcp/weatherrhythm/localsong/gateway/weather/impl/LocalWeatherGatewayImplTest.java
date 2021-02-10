@@ -44,7 +44,7 @@ class LocalWeatherGatewayImplTest {
                         .build())
                 .build();
         //when
-        when(weatherAdapter.getWeatherByCityName(city)).thenReturn(weatherClientModel);
+        when(weatherAdapter.retrieveWeatherByCityName(city)).thenReturn(weatherClientModel);
         LocalWeather localWeather = this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -59,7 +59,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        when(weatherAdapter.retrieveWeatherByCityName(city)).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -74,7 +74,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
+        when(weatherAdapter.retrieveWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -89,7 +89,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new RuntimeException("An error occurred"));
+        when(weatherAdapter.retrieveWeatherByCityName(city)).thenThrow(new RuntimeException("An error occurred"));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then

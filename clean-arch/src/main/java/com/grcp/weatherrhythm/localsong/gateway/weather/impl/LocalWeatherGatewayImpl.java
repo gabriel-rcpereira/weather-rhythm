@@ -36,7 +36,7 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
 
     private WeatherClientModel getWeatherByCityName(String cityName) {
         try {
-            return weatherAdapter.getWeatherByCityName(cityName);
+            return weatherAdapter.retrieveWeatherByCityName(cityName);
         } catch (HttpStatusCodeException e) {
             log.error("An error occurred. Failed sending local weather request by city [{}].", cityName, e);
             throw new GatewayException(retrieveGatewayErrorByStatus(e.getStatusCode()), e);

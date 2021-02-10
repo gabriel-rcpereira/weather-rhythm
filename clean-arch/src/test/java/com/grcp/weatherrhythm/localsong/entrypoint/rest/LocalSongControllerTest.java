@@ -112,8 +112,8 @@ class LocalSongControllerTest {
     @Test
     public void givenValidLatLong_whenRequestApiByLatitudeAndLongitude_thenExpectsSuccessResponse() throws Exception {
         // given
-        Double latitude = faker.number().randomDouble(5, -180, 180);
-        Double longitude = faker.number().randomDouble(5, -45, 45);
+        Double latitude = faker.number().randomDouble(5, -95, 95);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
 
         double celsiusTemperature = faker.number().randomDouble(2, -20, 45);
         LocalInfo mockedLocalInfo = LocalInfo.builder()
@@ -155,10 +155,10 @@ class LocalSongControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = { 180.00000001, -180.00000001, 200.000, -200.00000001 })
+    @ValueSource(doubles = { 95.000000, -95.00000, 100.100000, -200.100000 })
     public void givenInvalidLatAndValidLong_whenRequestApiByLatitudeAndLongitude_thenExpectsBadRequestResponse(Double latitude) throws Exception {
         // given
-        Double longitude = faker.number().randomDouble(5, -45, 45);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
 
         // when
         inOrder(findLocalSongsByLatitudeAndLongitude).verifyNoMoreInteractions();
@@ -178,10 +178,10 @@ class LocalSongControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = { 45.000001, -45.000001, 100.100000, -200.100000 })
+    @ValueSource(doubles = { 180.00000001, -180.00000001, 200.000, -200.00000001 })
     public void givenValidLatAndInvalidLong_whenRequestApiByLatitudeAndLongitude_thenExpectsBadRequestResponse(Double longitude) throws Exception {
         // given
-        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double latitude = faker.number().randomDouble(5, -95, 95);
 
         // when
         inOrder(findLocalSongsByLatitudeAndLongitude).verifyNoMoreInteractions();
@@ -203,7 +203,7 @@ class LocalSongControllerTest {
     @Test
     public void givenNoLatParameterAndInvalidLong_whenRequestApiByLatitudeAndLongitude_thenExpectsBadRequestResponse() throws Exception {
         // given
-        Double longitude = faker.number().randomDouble(5, -45, 45);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
 
         // when
         inOrder(findLocalSongsByLatitudeAndLongitude).verifyNoMoreInteractions();
@@ -224,7 +224,7 @@ class LocalSongControllerTest {
     @Test
     public void givenValidLatAndNoLongParameter_whenRequestApiByLatitudeAndLongitude_thenExpectsBadRequestResponse() throws Exception {
         // given
-        Double latitude = faker.number().randomDouble(5, -180, 180);
+        Double latitude = faker.number().randomDouble(5, -95, 95);
 
         // when
         inOrder(findLocalSongsByLatitudeAndLongitude).verifyNoMoreInteractions();

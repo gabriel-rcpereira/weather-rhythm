@@ -7,8 +7,8 @@ import javax.validation.ConstraintValidatorContext;
 
 public class LatitudeValidator implements ConstraintValidator<Latitude, Double> {
 
-    private static final double MIN_LATITUDE_VALUE = -180D;
-    private static final double MAX_LATITUDE_VALUE = 180D;
+    private static final double MIN_LATITUDE_VALUE = -95D;
+    private static final double MAX_LATITUDE_VALUE = 95D;
 
     @Override
     public boolean isValid(Double latitude, ConstraintValidatorContext context) {

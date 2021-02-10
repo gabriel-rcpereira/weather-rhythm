@@ -19,31 +19,58 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
 class WeatherAdapterIT {
 
+    private final Faker faker = Faker.instance();
+
     @Autowired
     private WeatherAdapter weatherAdapter;
 
     @Test
-    void givenValidCity_whenGetWeatherByCityName_thenReturnsLocalWeather() {
+    void givenValidCity_whenRetrieveWeatherByCityName_thenReturnsLocalWeather() {
         //given
         var city = "Campinas";
 
         //when
-        WeatherClientModel weatherClientModel = weatherAdapter.getWeatherByCityName(city);
+        WeatherClientModel weatherClientModel = weatherAdapter.retrieveWeatherByCityName(city);
 
         //then
         Assertions.assertNotNull(weatherClientModel, "expected response from api");
     }
 
     @Test
-    void givenInvalidCity_whenGetWeatherByCityName_thenReturnsResponseWithError() {
+    void givenInvalidCity_whenRetrieveWeatherByCityName_thenReturnsResponseWithError() {
         //given
         var city = Faker.instance().pokemon().name();
 
         //when
-        Executable executableApi = () -> weatherAdapter.getWeatherByCityName(city);
+        Executable executableApi = () -> weatherAdapter.retrieveWeatherByCityName(city);
 
         //then
         assertThrows(HttpClientErrorException.class, executableApi, "expected HttpClientErrorException from api execution");
     }
 
+    @Test
+    void givenValidLatitudeAndLongitude_whenRetrieveWeatherByLatitudeAndLongitude_thenReturnsLocalWeather() {
+        //given
+        Double latitude = faker.number().randomDouble(5, -95, 95);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
+
+        //when
+        WeatherClientModel weatherClientModel = weatherAdapter.retrieveWeatherByLatitudeAndLongitude(latitude, longitude);
+
+        //then
+        Assertions.assertNotNull(weatherClientModel, "expected response from api");
+    }
+
+    @Test
+    void givenInvalidLatitudeAndLongitude_whenRetrieveWeatherByLatitudeAndLongitude_thenReturnsLocalWeather() {
+        //given
+        Double latitude = faker.number().randomDouble(5, 95, 180);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
+
+        //when
+        Executable executableApi = () -> weatherAdapter.retrieveWeatherByLatitudeAndLongitude(latitude, longitude);
+
+        //then
+        assertThrows(HttpClientErrorException.class, executableApi, "expected HttpClientErrorException from api execution");
+    }
 }
