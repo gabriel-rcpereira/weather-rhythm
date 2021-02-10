@@ -1,7 +1,7 @@
-package com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.mapper;
+package com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.mapper;
 
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongDetailClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongWrapperClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongDetailClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongWrapperClientModel;
 import com.wrapper.spotify.model_objects.specification.PlaylistTrack;
 import com.wrapper.spotify.model_objects.specification.Track;
 import java.util.Arrays;

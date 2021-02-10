@@ -5,10 +5,10 @@ import com.grcp.weatherrhythm.localsong.domain.Song;
 import com.grcp.weatherrhythm.localsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.GatewayError;
 import com.grcp.weatherrhythm.localsong.gateway.song.PlaylistSongGateway;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.SongClient;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongDetailClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongWrapperClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.SpotifyApiGatewayImpl;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.SongAdapter;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongDetailClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongWrapperClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.SpotifyApiAdapter;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -18,16 +18,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlaylistSongGatewayManager implements PlaylistSongGateway {
 
-    private final SongClient songClient;
+    private final SongAdapter songAdapter;
 
-    public PlaylistSongGatewayManager(SpotifyApiGatewayImpl songClient) {
-        this.songClient = songClient;
+    public PlaylistSongGatewayManager(SpotifyApiAdapter songClient) {
+        this.songAdapter = songClient;
     }
 
     @Override
     public Set<Song> findSongsByCategory(Category category) {
         log.info("Finding songs by category [{}].", category);
-        SongWrapperClientModel songsByCategory = songClient.findSongsByCategory(category);
+        SongWrapperClientModel songsByCategory = songAdapter.findSongsByCategory(category);
 
         if (songsByCategory.hasError()) {
             log.info("Finding songs by category [{}] executed with error.", category);

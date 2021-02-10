@@ -4,15 +4,13 @@ import com.github.javafaker.Faker;
 import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.localsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.GatewayError;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.WeatherClient;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.model.WeatherClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.model.WeatherMainModel;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.WeatherAdapter;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model.WeatherClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model.WeatherMainModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -25,11 +23,11 @@ class LocalWeatherGatewayImplTest {
 
     private LocalWeatherGatewayImpl localWeatherGateway;
 
-    private WeatherClient weatherClient = mock(WeatherClient.class);
+    private WeatherAdapter weatherAdapter = mock(WeatherAdapter.class);
 
     @BeforeEach
     void setUp() {
-        this.localWeatherGateway = new LocalWeatherGatewayImpl(weatherClient);
+        this.localWeatherGateway = new LocalWeatherGatewayImpl(weatherAdapter);
     }
 
     @Test
@@ -46,7 +44,7 @@ class LocalWeatherGatewayImplTest {
                         .build())
                 .build();
         //when
-        when(weatherClient.getWeatherByCityName(city)).thenReturn(weatherClientModel);
+        when(weatherAdapter.getWeatherByCityName(city)).thenReturn(weatherClientModel);
         LocalWeather localWeather = this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -61,7 +59,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherClient.getWeatherByCityName(city)).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
+        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new HttpClientErrorException(HttpStatus.NOT_FOUND));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -76,7 +74,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherClient.getWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
+        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then
@@ -91,7 +89,7 @@ class LocalWeatherGatewayImplTest {
         var city = faker.address().city();
 
         //when
-        when(weatherClient.getWeatherByCityName(city)).thenThrow(new RuntimeException("An error occurred"));
+        when(weatherAdapter.getWeatherByCityName(city)).thenThrow(new RuntimeException("An error occurred"));
         Executable executableMethod = () -> this.localWeatherGateway.retrieveLocalWeatherByCityName(city);
 
         //then

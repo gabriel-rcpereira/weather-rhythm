@@ -1,11 +1,11 @@
-package com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify;
+package com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify;
 
 import com.grcp.weatherrhythm.localsong.domain.Category;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.SongClient;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.ErrorDetailClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongWrapperClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.model.SpotifyCategoryId;
-import com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.mapper.PlaylistSongGatewayMapper;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.SongAdapter;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.ErrorDetailClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongWrapperClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.model.SpotifyCategoryId;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.mapper.PlaylistSongGatewayMapper;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
@@ -23,15 +23,15 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class SpotifyApiGatewayImpl implements SongClient {
+public class SpotifyApiAdapter implements SongAdapter {
 
     private final String clientId;
     private final String clientSecret;
     private final SpotifyApi spotifyApi;
 
-    public SpotifyApiGatewayImpl(@Value("${spotify.credentials.clientId}")
+    public SpotifyApiAdapter(@Value("${spotify.credentials.clientId}")
                                          String clientId,
-                                 @Value("${spotify.credentials.clientSecret}")
+                             @Value("${spotify.credentials.clientSecret}")
                                          String clientSecret) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;

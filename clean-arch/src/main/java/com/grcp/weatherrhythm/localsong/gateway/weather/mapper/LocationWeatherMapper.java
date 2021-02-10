@@ -1,8 +1,8 @@
 package com.grcp.weatherrhythm.localsong.gateway.weather.mapper;
 
 import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.model.WeatherMainModel;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.model.WeatherClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model.WeatherMainModel;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model.WeatherClientModel;
 
 public class LocationWeatherMapper {
 

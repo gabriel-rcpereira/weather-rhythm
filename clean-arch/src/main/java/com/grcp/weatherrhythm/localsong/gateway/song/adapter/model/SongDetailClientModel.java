@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.localsong.gateway.song.client.model;
+package com.grcp.weatherrhythm.localsong.gateway.song.adapter.model;
 
 import lombok.Builder;
 import lombok.Value;

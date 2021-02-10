@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.model;
+package com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.model;
 
 import com.grcp.weatherrhythm.localsong.domain.Category;
 import java.util.stream.Stream;

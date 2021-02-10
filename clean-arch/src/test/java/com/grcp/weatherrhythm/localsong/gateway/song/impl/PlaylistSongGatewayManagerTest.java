@@ -5,18 +5,16 @@ import com.grcp.weatherrhythm.localsong.domain.Category;
 import com.grcp.weatherrhythm.localsong.domain.Song;
 import com.grcp.weatherrhythm.localsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.GatewayError;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.ErrorDetailClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongDetailClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.client.model.SongWrapperClientModel;
-import com.grcp.weatherrhythm.localsong.gateway.song.impl.spotify.SpotifyApiGatewayImpl;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.ErrorDetailClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongDetailClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.model.SongWrapperClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.song.adapter.impl.spotify.SpotifyApiAdapter;
 import java.util.Set;
 import java.util.function.Predicate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -26,7 +24,7 @@ public class PlaylistSongGatewayManagerTest {
 
     private PlaylistSongGatewayManager playlistSongGatewayManager;
 
-    private SpotifyApiGatewayImpl songClient = mock(SpotifyApiGatewayImpl.class);
+    private SpotifyApiAdapter songClient = mock(SpotifyApiAdapter.class);
 
     @BeforeEach
     void setUp() {

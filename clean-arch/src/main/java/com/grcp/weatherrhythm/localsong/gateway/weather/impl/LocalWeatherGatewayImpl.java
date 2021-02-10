@@ -5,8 +5,8 @@ import com.grcp.weatherrhythm.localsong.domain.exception.GatewayException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.GatewayError;
 import com.grcp.weatherrhythm.localsong.gateway.weather.LocalWeatherGateway;
 import com.grcp.weatherrhythm.localsong.gateway.weather.mapper.LocationWeatherMapper;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.WeatherClient;
-import com.grcp.weatherrhythm.localsong.gateway.weather.client.model.WeatherClientModel;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.WeatherAdapter;
+import com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model.WeatherClientModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,10 @@ import org.springframework.web.client.HttpStatusCodeException;
 @Component
 public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
 
-    private final WeatherClient weatherClient;
+    private final WeatherAdapter weatherAdapter;
 
-    public LocalWeatherGatewayImpl(WeatherClient weatherClient) {
-        this.weatherClient = weatherClient;
+    public LocalWeatherGatewayImpl(WeatherAdapter weatherAdapter) {
+        this.weatherAdapter = weatherAdapter;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
 
     private WeatherClientModel getWeatherByCityName(String cityName) {
         try {
-            return weatherClient.getWeatherByCityName(cityName);
+            return weatherAdapter.getWeatherByCityName(cityName);
         } catch (HttpStatusCodeException e) {
             log.error("An error occurred. Failed sending local weather request by city [{}].", cityName, e);
             throw new GatewayException(retrieveGatewayErrorByStatus(e.getStatusCode()), e);

@@ -1,4 +1,4 @@
-package com.grcp.weatherrhythm.localsong.gateway.weather.client.model;
+package com.grcp.weatherrhythm.localsong.gateway.weather.adapter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
