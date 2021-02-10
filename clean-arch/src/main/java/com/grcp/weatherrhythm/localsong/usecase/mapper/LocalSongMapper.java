@@ -22,9 +22,23 @@ public class LocalSongMapper {
                 .build();
     }
 
+    public LocalSong mapToLocationSong(double celsiusTemperature,
+                                       Set<Song> songs) {
+        return LocalSong.builder()
+                .location(mapToLocationInfo(celsiusTemperature))
+                .songs(songs)
+                .build();
+    }
+
     private LocalInfo mapToLocationInfo(LocalWeather localWeather) {
         return LocalInfo.builder()
                 .celsiusTemperature(localWeather.getCelsiusTemperature())
+                .build();
+    }
+
+    private LocalInfo mapToLocationInfo(double celsiusTemperature) {
+        return LocalInfo.builder()
+                .celsiusTemperature(celsiusTemperature)
                 .build();
     }
 }

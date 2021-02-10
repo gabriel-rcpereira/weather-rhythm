@@ -3,8 +3,10 @@ package com.grcp.weatherrhythm.localsong.domain;
 import com.grcp.weatherrhythm.localsong.domain.exception.DomainException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.DomainError;
 import lombok.Builder;
+import lombok.ToString;
 import lombok.Value;
 
+@ToString
 @Value
 @Builder(toBuilder = true)
 public class LocalWeather {
