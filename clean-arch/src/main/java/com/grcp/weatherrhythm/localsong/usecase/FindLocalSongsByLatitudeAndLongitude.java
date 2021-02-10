@@ -1,13 +1,9 @@
 package com.grcp.weatherrhythm.localsong.usecase;
 
-import com.grcp.weatherrhythm.localsong.domain.Category;
 import com.grcp.weatherrhythm.localsong.domain.LocalSong;
 import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
-import com.grcp.weatherrhythm.localsong.domain.Song;
-import com.grcp.weatherrhythm.localsong.gateway.song.PlaylistSongGateway;
 import com.grcp.weatherrhythm.localsong.gateway.weather.LocalWeatherGateway;
-import com.grcp.weatherrhythm.localsong.usecase.mapper.LocalSongMapper;
-import java.util.Set;
+import com.grcp.weatherrhythm.localsong.usecase.service.FindLocalSongByCelsiusTemperature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -16,21 +12,19 @@ import org.springframework.stereotype.Component;
 public class FindLocalSongsByLatitudeAndLongitude {
 
     private final LocalWeatherGateway localWeatherGateway;
-    private final PlaylistSongGateway playlistSongGateway;
+    private final FindLocalSongByCelsiusTemperature findLocalSongByCelsiusTemperature;
 
     public FindLocalSongsByLatitudeAndLongitude(LocalWeatherGateway localWeatherGateway,
-                                                PlaylistSongGateway playlistSongGateway) {
+                                                FindLocalSongByCelsiusTemperature findLocalSongByCelsiusTemperature) {
         this.localWeatherGateway = localWeatherGateway;
-        this.playlistSongGateway = playlistSongGateway;
+        this.findLocalSongByCelsiusTemperature = findLocalSongByCelsiusTemperature;
     }
 
     public LocalSong execute(double latitude, double longitude) {
         log.info("Executing finding local songs by latitude [{}] and longitude [{}].", latitude, longitude);
 
         LocalWeather localWeather = this.localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude);
-        Category category = localWeather.retrieveCategoryByTemperature();
-        Set<Song> songsByCategory = this.playlistSongGateway.findSongsByCategory(category);
-        LocalSong localSong = LocalSongMapper.INSTANCE.mapToLocationSong(localWeather, songsByCategory);
+        LocalSong localSong = this.findLocalSongByCelsiusTemperature.execute(localWeather.getCelsiusTemperature());
 
         log.info("Executing finding local songs by latitude [{}] and longitude [{}] with success.", latitude, longitude);
         return localSong;
