@@ -96,4 +96,29 @@ class LocalWeatherGatewayImplTest {
         GatewayException gatewayException = assertThrows(GatewayException.class, executableMethod);
         Assertions.assertEquals(GatewayError.LOCAL_WEATHER_FAILED_REQUEST, gatewayException.getError());
     }
+
+    @Test
+    public void givenValidLatitudeAndLongitude_whenRetrieveLocalByLatitudeAndLongitude_thenReturnsValidLocalWeatherWithCelsiusTemperature() {
+        //given
+        Faker faker = Faker.instance();
+        Double latitude = faker.number().randomDouble(5, -95, 95);
+        Double longitude = faker.number().randomDouble(5, -180, 180);
+
+        double expectedCelsiusTemperature = 6.95;
+        double temp = 280.10;
+        WeatherClientModel weatherClientModel = WeatherClientModel.builder()
+                .main(WeatherMainModel.builder()
+                        .temp(temp)
+                        .build())
+                .build();
+
+        //when
+        when(weatherAdapter.retrieveWeatherByLatitudeAndLongitude(latitude, longitude)).thenReturn(weatherClientModel);
+        LocalWeather localWeather = this.localWeatherGateway.retrieveLocalWeatherByLatitudeAndLongitude(latitude, longitude);
+
+        //then
+        Assertions.assertNotNull(localWeather);
+        Assertions.assertEquals(expectedCelsiusTemperature, localWeather.getCelsiusTemperature(), "expected celsius temperature");
+    }
+
 }

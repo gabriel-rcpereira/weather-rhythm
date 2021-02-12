@@ -25,13 +25,15 @@ public class LocalWeatherGatewayImpl implements LocalWeatherGateway {
     @Override
     public LocalWeather retrieveLocalWeatherByCityName(String cityName) {
         log.info("Retrieving local weather by city [{}].", cityName);
-        WeatherClientModel weatherResponse = getWeatherByCityName(cityName);
-        return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weatherResponse);
+        WeatherClientModel weather = getWeatherByCityName(cityName);
+        return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weather);
     }
 
     @Override
     public LocalWeather retrieveLocalWeatherByLatitudeAndLongitude(double latitude, double longitude) {
-        return null;
+        log.info("Retrieving local weather by latitude [{}] and longitude [{}].", latitude, longitude);
+        WeatherClientModel weather = weatherAdapter.retrieveWeatherByLatitudeAndLongitude(latitude, longitude);
+        return LocationWeatherMapper.INSTANCE.mapToLocationWeather(weather);
     }
 
     private WeatherClientModel getWeatherByCityName(String cityName) {

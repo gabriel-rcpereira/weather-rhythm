@@ -45,7 +45,7 @@ public class LocalSongController {
         LocalSong localSong = findLocalSongsByLatitudeAndLongitude.execute(latitude, longitude);
         LocalSongResponse response = new LocalSongResponse(localSong);
 
-        log.info("Getting location songs by Latitude [{}] and Longitude [{}].", latitude, longitude);
+        log.info("Getting location songs by Latitude [{}] and Longitude [{}] with success.", latitude, longitude);
         return ResponseEntity.ok(response);
     }
 
