@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.grcp'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -51,6 +51,10 @@ dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+springBoot {
+	buildInfo()
 }
 
 test {

@@ -54,7 +54,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(GatewayException.class)
     ResponseEntity<ServiceErrorResponse> handleGatewayException(GatewayException e) {
-        log.error("An domain error occurred.", e);
+        log.error("A gateway error occurred.", e);
 
         ErrorMessage errorMessage = retrieveErrorMessage(e.getError().getErrorCode());
         ServiceErrorResponse serviceErrorResponse = new ServiceErrorResponse.Builder()
