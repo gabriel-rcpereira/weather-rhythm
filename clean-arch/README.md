@@ -41,3 +41,14 @@ The other C4 diagrams will be created(or changed) according to project advances.
 - [Spring Cloud OpenFeign](https://cloud.spring.io/spring-cloud-openfeign/reference/html/)
 
 - [JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
+
+- [Mockito](https://site.mockito.org/)
+
+- [Hamcrest](http://hamcrest.org/JavaHamcrest/)
+
+- [Spring Doc](https://springdoc.org/)
+
+## Access API Documentation
+The API documentation may be accessed whether by SwaggerUI through the link `http://localhost:8080/swagger-ui.html` or
+by Spring Doc `http://localhost:8080/v3/api-docs`.
+

@@ -15,3 +15,7 @@ spotify:
   credentials:
     clientId: cb899a53393f43e8ab7451e405316849
     clientSecret: 7bbec175a89449d48f6f5a5c50fac488
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
