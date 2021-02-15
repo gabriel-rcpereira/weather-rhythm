@@ -4,9 +4,13 @@ node {
   }
 
   stage('Compile-Package') {
-    sh """
-      cd clean-arch 
-      mvn package
-      """
+    sh "cd clean-arch"
+    sh "mvn package"
+  }
+
+  stage('SonarQube Analysis') {
+    withSonarQubeEnv('sonar') {
+      sh "mvn sonar:sonar"
+    }
   }
 }
