@@ -23,10 +23,10 @@ node {
   // }  
 
   stage('Compile-Package') {
-    // sh """
-    //     cd clean-arch
-    //     mvn package
-    // """
+    sh """
+        cd clean-arch
+        mvn package
+    """
   }
 
 }
