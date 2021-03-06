@@ -30,7 +30,8 @@ node {
   }
 
   stage('Create and push container') {
-    sh """        
+    sh """
+        cd clean-arch
         docker build -t api/weather-rhythm .
     """
 
