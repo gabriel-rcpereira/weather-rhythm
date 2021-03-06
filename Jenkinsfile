@@ -25,7 +25,25 @@ node {
   stage('Compile-Package') {
     sh """
         cd clean-arch
-        mvn package
+        mvn -DskipTests package
+    """
+  }
+
+  stage('Create and push container') {
+    sh """        
+        docker build -t api/weather-rhythm .
+    """
+
+    // sh """        
+    //     docker build -t api/weather-rhythm .
+    //     docker tag api/weather-rhythm:latest gabrielrcpereira/weather-rhythm
+    //     docker push gabrielrcpereira/weather-rhythm
+    // """
+  }
+
+  stage('Deploy') {
+    sh """        
+        kubectl apply -f test-pod.yml
     """
   }
 

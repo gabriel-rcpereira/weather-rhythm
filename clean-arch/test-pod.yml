@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-rhythm
+  labels:
+    app: weather-rhythm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: weather-rhythm
+  template:
+    metadata:
+      labels:
+        app: weather-rhythm
+    spec:
+      containers:
+      - name: weather-rhythm
+        image: gabrielrcpereira/weather-rhythm
+        ports:
+        - containerPort: 8080        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-rhythm-service
+spec:
+  selector:
+    app: weather-rhythm
+  type: LoadBalancer  #assigns an external ip and acts as load balancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30001 #external port must be between 30000-32767
