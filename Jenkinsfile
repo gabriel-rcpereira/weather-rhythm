@@ -23,16 +23,23 @@ node {
   // }  
 
   stage('Compile-Package') {
-    sh """
-        cd clean-arch
-        mvn -DskipTests package
-    """
+    dir('clean-arch') {
+      sh """
+          mvn -DskipTests package
+      """
+      // sh """
+      //     cd clean-arch
+      //     mvn -DskipTests package
+      // """
+    }
   }
 
   stage('Create and push container') {
-    sh """        
-        docker build -t api/weather-rhythm .
-    """
+    dir('clean-arch') {
+      def builtContainer = docker.build 'gabrielrcpereira/weather-rhythm'
+      builtContainer.push()
+      builtContainer.push 'latest'
+    }
 
     // sh """        
     //     docker build -t api/weather-rhythm .
