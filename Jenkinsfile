@@ -40,18 +40,13 @@ node {
       builtContainer.push()
       builtContainer.push 'latest'
     }
-
-    // sh """        
-    //     docker build -t api/weather-rhythm .
-    //     docker tag api/weather-rhythm:latest gabrielrcpereira/weather-rhythm
-    //     docker push gabrielrcpereira/weather-rhythm
-    // """
   }
 
   stage('Deploy') {
-    sh """        
-        kubectl apply -f test-pod.yml
-    """
+    dir('clean-arch') {
+      sh """        
+          kubectl apply -f test-pod.yml
+      """
+    }
   }
-
 }
