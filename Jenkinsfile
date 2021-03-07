@@ -37,7 +37,7 @@ node {
   stage('Create and push container') {
     dir('clean-arch') {
       def builtContainer = docker.build 'gabrielrcpereira/weather-rhythm'
-      docker.withRegistry('https://hub.docker.com/', 'docker-login') {
+      docker.withRegistry(null, 'docker-login') {
         builtContainer.push()
         builtContainer.push 'latest'
       }
