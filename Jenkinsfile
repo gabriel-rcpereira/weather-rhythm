@@ -36,13 +36,15 @@ node {
 
   stage('Create and push container') {
     dir('clean-arch') {
-      // def builtContainer = docker.build 'gabrielrcpereira/weather-rhythm'
-      // builtContainer.push()
-      // builtContainer.push 'latest'
-      sh """
-        docker build -t gabrielrcpereira/weather-rhythm .
-        docker push gabrielrcpereira/weather-rhythm
-      """
+      def builtContainer = docker.build 'gabrielrcpereira/weather-rhythm'
+      docker.withRegistry('https://hub.docker.com/', 'docker-login') {
+        builtContainer.push()
+        builtContainer.push 'latest'
+      }
+      // sh """
+      //   docker build -t gabrielrcpereira/weather-rhythm .
+      //   docker push gabrielrcpereira/weather-rhythm
+      // """
     }
   }
 
