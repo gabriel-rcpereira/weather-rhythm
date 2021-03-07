@@ -30,16 +30,12 @@ node {
   }
 
   stage('Create and push container') {
-    sh """
+    sh """        
         cd clean-arch
-        docker build -t api/weather-rhythm .
     """
 
-    // sh """        
-    //     docker build -t api/weather-rhythm .
-    //     docker tag api/weather-rhythm:latest gabrielrcpereira/weather-rhythm
-    //     docker push gabrielrcpereira/weather-rhythm
-    // """
+    def builtContainer = docker.build 'api/weather-rhythm'
+    builtContainer.push()
   }
 
   stage('Deploy') {
