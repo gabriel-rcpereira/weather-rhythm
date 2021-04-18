@@ -3,7 +3,6 @@ package com.grcp.weatherrhythm.localsong.usecase;
 import com.grcp.weatherrhythm.localsong.domain.LocalSong;
 import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.localsong.gateway.weather.LocalWeatherGateway;
-import com.grcp.weatherrhythm.localsong.usecase.service.FindLocalSongByCelsiusTemperature;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

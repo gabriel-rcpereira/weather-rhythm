@@ -6,7 +6,7 @@ import com.grcp.weatherrhythm.localsong.domain.LocalSong;
 import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.localsong.domain.Song;
 import com.grcp.weatherrhythm.localsong.gateway.weather.LocalWeatherGateway;
-import com.grcp.weatherrhythm.localsong.usecase.service.FindLocalSongByCelsiusTemperature;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

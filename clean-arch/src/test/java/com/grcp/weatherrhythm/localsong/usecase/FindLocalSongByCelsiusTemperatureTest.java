@@ -1,14 +1,12 @@
-package com.grcp.weatherrhythm.localsong.usecase.service;
+package com.grcp.weatherrhythm.localsong.usecase;
 
 import com.github.javafaker.Faker;
 import com.grcp.weatherrhythm.localsong.domain.Category;
 import com.grcp.weatherrhythm.localsong.domain.LocalInfo;
 import com.grcp.weatherrhythm.localsong.domain.LocalSong;
-import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.localsong.domain.Song;
 import com.grcp.weatherrhythm.localsong.gateway.song.PlaylistSongGateway;
-import com.grcp.weatherrhythm.localsong.gateway.weather.LocalWeatherGateway;
-import com.grcp.weatherrhythm.localsong.usecase.FindLocalSongsByLatitudeAndLongitude;
+import com.grcp.weatherrhythm.localsong.usecase.FindLocalSongByCelsiusTemperature;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

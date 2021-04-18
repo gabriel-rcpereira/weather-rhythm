@@ -1,8 +1,7 @@
-package com.grcp.weatherrhythm.localsong.usecase.service;
+package com.grcp.weatherrhythm.localsong.usecase;
 
 import com.grcp.weatherrhythm.localsong.domain.Category;
 import com.grcp.weatherrhythm.localsong.domain.LocalSong;
-import com.grcp.weatherrhythm.localsong.domain.LocalWeather;
 import com.grcp.weatherrhythm.localsong.domain.Song;
 import com.grcp.weatherrhythm.localsong.domain.exception.DomainException;
 import com.grcp.weatherrhythm.localsong.domain.exception.errors.DomainError;

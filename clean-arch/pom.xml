@@ -15,7 +15,9 @@
   <version>1.0.0</version>
   <name>weather-rhythm</name>
   <description>Weather Rhythm</description>
-
+  <properties>
+    <lombok.version>1.18.20</lombok.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -54,7 +56,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <optional>true</optional>
+      <version>${lombok.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
@@ -114,9 +116,7 @@
           </execution>
         </executions>
       </plugin>
-
-      <!-- 
-        <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
@@ -124,22 +124,29 @@
           <source>11</source>
           <target>11</target>
           <release>11</release>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.6.2</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>compile</goal>
-              <goal>compileTests</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>-->
+      <!-- commented aims to avoid execution all the time
+            <plugin>
+              <groupId>org.codehaus.gmavenplus</groupId>
+              <artifactId>gmavenplus-plugin</artifactId>
+              <version>1.6.2</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>compile</goal>
+                    <goal>compileTests</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>-->
     </plugins> 
   </build> 
 
